@@ -3,8 +3,8 @@ require 'pg'
 require 'logger'
 
 $console = ENV['RACK_ENV'] == 'development' ? Logger.new(STDOUT) : nil
-DB = Sequel.connect(
-  ENV['APP_DB'] || 'postgres://localhost/app',
+DB = Sequel.connect(                 
+  ENV['PHO_DB'] || 'postgres://localhost/pho',
   logger: $console,
   test: true
 )
@@ -19,4 +19,6 @@ DB.pool.connection_validation_timeout = 300
 Sequel::Model.plugin :timestamps
 Sequel::Model.plugin :json_serializer
 
-#require models/* files
+require 'models/camera'
+require 'models/file'
+require 'models/photo'

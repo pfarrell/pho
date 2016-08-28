@@ -3,15 +3,23 @@ GEM
   specs:
     backports (3.6.8)
     byebug (8.2.2)
+    coderay (1.1.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
     emk-sinatra-url-for (0.2.1)
       sinatra (>= 0.9.1.1)
+    exifr (1.2.5)
+    gist (4.5.0)
     haml (4.0.7)
       tilt
     json (1.8.3)
+    method_source (0.8.2)
     multi_json (1.11.2)
     pg (0.18.4)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -52,6 +60,7 @@ GEM
       tilt (>= 1.3, < 3)
     sinatra-respond_to (0.9.0)
       sinatra (~> 1.3)
+    slop (3.6.0)
     tilt (2.0.2)
 
 PLATFORMS
@@ -60,8 +69,11 @@ PLATFORMS
 DEPENDENCIES
   byebug
   emk-sinatra-url-for
+  exifr
+  gist
   haml
   pg
+  pry
   rake
   rspec
   sequel

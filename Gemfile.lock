@@ -12,6 +12,9 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     coderay (1.1.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -87,6 +90,7 @@ DEPENDENCIES
   capistrano (~> 3.4.0)
   capistrano-bower
   capistrano-bundler (~> 1.1.2)
+  capistrano-rvm
   emk-sinatra-url-for
   exifr
   gist

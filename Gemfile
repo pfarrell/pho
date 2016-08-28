@@ -13,6 +13,7 @@ gem 'pg'
 gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-bower'
+gem 'capistrano-rvm', require: false
 
 gem 'exifr'
 

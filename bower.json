@@ -1,14 +1,14 @@
 {
-  "name": "APP",
+  "name": "pho",
   "version": "0.0.1",
   "dependencies": {
     "bootstrap": "~3.3.5"
   },
-  "homepage": "https://github.com/pfarrell/sinatra-shell",
+  "homepage": "https://github.com/pfarrell/pho",
   "authors": [
     "Patrick Farrell <mr.patfarrell@gmail.com>"
   ],
-  "description": "base template for sinatra applicaton",
+  "description": "Photo searching",
   "keywords": [
     "sinatra"
   ],

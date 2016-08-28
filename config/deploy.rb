@@ -1,14 +1,17 @@
 # config valid only for Capistrano 3.1
-lock '3.2.1'
+lock '3.4.1'
 
 set :application, 'pho'
 set :repo_url, 'git@github.com:pfarrell/pho.git'
+set :rvm_ruby_string, :local
 
 # Default branch is :master
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
  set :deploy_to, '/var/www/pho'
+set :rvm_map_bins, %w{bundle gem rake ruby}
+set :rvm_type, :auto
 
 # Default value for :scm is :git
 set :scm, :git
@@ -31,6 +34,13 @@ set :deploy_via, :remote_cache
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+set :default_env, {
+  'PATH' => "/home/pfarrell/.rvm/rubies/ruby-2.3.0/bin:/home/pfarrell/.rvm/gems/ruby-2.3.0@global/bin:/home/pfarrell/.rvm/bin:$PATH",
+  'RUBY_VERSION' => 'ruby-2.3.0',
+  'GEM_HOME' => '/home/pfarrell/.rvm/gems/ruby-2.3.0@global',
+  'GEM_PATH' => '/home/pfarrell/.rvm/gems/ruby-2.3.0@global'
+}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5

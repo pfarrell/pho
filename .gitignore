@@ -2,3 +2,5 @@ public/libs
 vendor
 coverage
 .bundle
+
+.byebug_history

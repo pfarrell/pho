@@ -3,7 +3,7 @@ require 'pg'
 require 'logger'
 
 $console = ENV['RACK_ENV'] == 'development' ? Logger.new(STDOUT) : nil
-DB = Sequel.connect(                 
+DB = Sequel.connect(
   ENV['PHO_DB'] || 'postgres://localhost/pho',
   logger: $console,
   test: true
@@ -22,3 +22,4 @@ Sequel::Model.plugin :json_serializer
 require 'models/camera'
 require 'models/file'
 require 'models/photo'
+require 'models/tag'

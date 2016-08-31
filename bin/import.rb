@@ -1,29 +1,40 @@
 require './app'
 require 'exifr'
 require 'digest'
+require 'json'
+require 'byebug'
 
 class PhoIn
-  def self.import_photo(file_path)
+  def self.import_photo(file_path, tags)
     image=EXIFR::JPEG.new(file_path)
+    tags = create_tags(tags)
     file = File.new(file_path)
     camera = create_camera(image.make, image.model)
-    create_photo(image, camera, file)
+    create_photo(image, camera, file, tags)
+  end
+
+  def self.create_tags(json)
+    return [] if json.nil?
+    ret = []
+    tags = JSON.parse(json)
+    tags.each{|k,v| ret << Tag.find_or_create(tag: v)}
+    ret
   end
 
   def self.create_camera(make, model)
     Camera.find_or_create(make: make, model: model)
   end
 
-  def self.create_photo(image, camera, file)  
+  def self.create_photo(image, camera, file, tags)
     sha= Digest::SHA256.file(file)
     photo = Photo.find(hash: sha.hexdigest)
-    if(photo.nil?) 
+    if(photo.nil?)
       photo = Photo.new(
-        hash: sha.hexdigest, 
-        path: File.realpath(file), 
-        size: file.size, 
+        hash: sha.hexdigest,
+        path: File.realpath(file),
+        size: file.size,
         date: image.date_time,
-        exposure_time: image.exif&.exposure_time, 
+        exposure_time: image.exif&.exposure_time,
         f_stop: image.exif&.f_number,
         iso_speed: image.iso_speed_ratings,
         shutter_speed: image.shutter_speed_value,
@@ -37,15 +48,20 @@ class PhoIn
         altitude: image.gps_altitude,
         width: image.width,
         height: image.height,
-        latitude: image.exif&.gps&.latitude, 
+        latitude: image.exif&.gps&.latitude,
         longitude: image.exif&.gps&.longitude
       )
       photo.camera = camera
+      photo.save
+      tags.each do |tag|
+        photo.add_tag tag
+      end
       photo.save
     end
     photo
   end
 end
 
-PhoIn.import_photo(ARGV[0])
+image, tags = ARGV
+PhoIn.import_photo(image, tags)
 

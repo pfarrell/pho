@@ -19,11 +19,11 @@ gem 'exifr'
 
 gem 'haml'
 
-group :development do
+group :development, :test do
   gem 'rspec'
   gem 'simplecov'
   gem 'byebug'
   gem 'gist'
   gem 'pry'
-  gem 'shotgun'
+  gem 'rspec'
 end

@@ -23,5 +23,6 @@ class App < Sinatra::Application
   end
 end
 
+require 'helpers'
 require 'models'
 require 'routes'

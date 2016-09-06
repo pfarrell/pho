@@ -10,6 +10,8 @@ gem 'sinatra-respond_to'
 gem 'sequel'
 gem 'pg'
 
+gem 'rmagick'
+
 gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-bower'

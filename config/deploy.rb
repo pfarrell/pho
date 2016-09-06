@@ -9,7 +9,7 @@ set :rvm_ruby_string, :local
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
- set :deploy_to, '/var/www/pho'
+set :deploy_to, '/var/www/pho'
 set :rvm_map_bins, %w{bundle gem rake ruby}
 set :rvm_type, :auto
 

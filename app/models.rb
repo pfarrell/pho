@@ -19,6 +19,7 @@ DB.pool.connection_validation_timeout = 300
 Sequel::Model.plugin :timestamps
 Sequel::Model.plugin :json_serializer
 
+require 'RMagick'
 require 'models/camera'
 require 'models/file'
 require 'models/photo'

@@ -6,4 +6,11 @@ module Resize
     thumbnail_size(width/2, height/2, opts)
   end
 
+  def thumbnail
+    thumbnail_path = "~/proj/pho/public/thumbnails/#{self.name}"
+    img = Magick::Image::read(File.new(self.path))
+    img.first.resize_to_fill(75,75).write("/tmp/test.jpg")
+
+  end
+
 end

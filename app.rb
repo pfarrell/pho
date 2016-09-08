@@ -6,8 +6,6 @@ require 'sinatra/respond_to'
 require 'sinatra/cookies'
 require 'securerandom'
 require 'haml'
-print ENV['RACK_ENV']
-require 'byebug' if ENV['RACK_ENV'] ||= "development"
 
 class App < Sinatra::Application
   helpers Sinatra::UrlForHelper

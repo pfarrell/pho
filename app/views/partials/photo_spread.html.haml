@@ -1,0 +1,3 @@
+#photos
+  -photos.each_with_index do |photo, i|
+    =haml :"partials/photo", locals: {photo: photo, idx: i}

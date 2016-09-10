@@ -1,1 +1,2 @@
-=photo.inspect
+%a{href: "#{url_for("/photo/#{photo.id}")}"}
+  %img{src: "#{url_for("/thumbnails/#{url_for(photo.thumbnail)}")}"}

@@ -9,6 +9,6 @@ class Photo < Sequel::Model
   end
   
   def thumbnail
-    "public/thumbnails/#{file_name}-thumb.jpg"
+    "#{file_name}-thumb.jpg"
   end
 end

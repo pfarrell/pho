@@ -1,5 +1,5 @@
 class App < Sinatra::Application
   get "/" do
-    haml :index, locals: {photos: Photo.all}
+    redirect url_for("/photos/recent")
   end
 end

@@ -16,6 +16,12 @@ class App < Sinatra::Application
   set :session_secret, ENV["APP_SESSION_SECRET"] || "youshouldreallychangethis"
   set :views, Proc.new { File.join(root, "app/views") }
 
+  def page_seq(curr_page, page_count)
+    start = curr_page > 5 ? curr_page - 5 : 1
+    stop = page_count - curr_page > 5 ? curr_page + 5 : page_count
+    return (start..stop)
+  end
+
   before do
     response.set_cookie(:appc, value: SecureRandom.uuid, expires: Time.now + 3600 * 24 * 365 * 10) if request.cookies["bmc"].nil?
   end

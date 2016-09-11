@@ -1,4 +1,7 @@
 public/libs
+public/thumbnails
+public/pictures
+spec/fixtures/*.jpg
 vendor
 coverage
 .bundle

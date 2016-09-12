@@ -1,5 +1,5 @@
 %a{href: "#{url_for("/photo/#{prev}")}"}
   <<
+%img.full{src: "#{url_for("/pictures/#{photo.path}")}"}
 %a{href: "#{url_for("/photo/#{nxt}")}"}
   >>
-%img.full{src: "#{url_for("/pictures/#{photo.path}")}"}

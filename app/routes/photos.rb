@@ -24,8 +24,9 @@ class App < Sinatra::Application
   end
 
   get "/photo/:id" do
-    nxt = proximate(params[:id].to_i, 'up')
-    prev = proximate(params[:id].to_i, 'down')
-    haml :photo, locals: {photo: Photo[params[:id].to_i], nxt: nxt, prev: prev}
+    curr = Photo[params[:id].to_i]
+    prev = Photo.where('date < ?', curr.date).order(Sequel.desc(:date)).first
+    nxt = Photo.where('date > ?', curr.date).order(:date).first
+    haml :photo, locals: {photo: curr, nxt: nxt, prev: prev}
   end
 end

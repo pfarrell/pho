@@ -1,8 +1,8 @@
 .nav
   -if prev
     %a.thumb{href: "#{url_for("/photo/#{prev.id}")}"}
-      %img.prev{src: "#{url_for("/pictures#{prev.path}")}"}
+      %img.prev{src: "#{url_for("/thumbnails/#{prev.thumbnail}")}"}
   -if nxt
     %a.thumb.pull-right{href: "#{url_for("/photo/#{nxt.id}")}"}
-      %img.next{src: "#{url_for("/pictures/#{nxt.path}")}"}
+      %img.next{src: "#{url_for("/thumbnails/#{nxt.thumbnail}")}"}
 %img.full{src: "#{url_for("/pictures#{photo.path}")}"}

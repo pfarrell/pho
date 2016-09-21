@@ -1,6 +1,8 @@
 .nav
-  %a.thumb{href: "#{url_for("/photo/#{prev.id}")}"}
-    %img.prev{src: "#{url_for("/pictures/#{prev.path}")}"}
-  %a.thumb.pull-right{href: "#{url_for("/photo/#{nxt.id}")}"}
-    %img.next{src: "#{url_for("/pictures/#{nxt.path}")}"}
-%img.full{src: "#{url_for("/pictures/#{photo.path}")}"}
+  -if prev
+    %a.thumb{href: "#{url_for("/photo/#{prev.id}")}"}
+      %img.prev{src: "#{url_for("/pictures#{prev.path}")}"}
+  -if nxt
+    %a.thumb.pull-right{href: "#{url_for("/photo/#{nxt.id}")}"}
+      %img.next{src: "#{url_for("/pictures/#{nxt.path}")}"}
+%img.full{src: "#{url_for("/pictures#{photo.path}")}"}

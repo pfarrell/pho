@@ -5,4 +5,16 @@
   -if nxt
     %a.thumb.pull-right{href: "#{url_for("/photo/#{nxt.id}")}"}
       %img.next{src: "#{url_for("/thumbnails/#{nxt.thumbnail}")}"}
-%img.full{src: "#{url_for("/pictures#{photo.path}")}"}
+.row
+  .col-sm-6
+    %img.full{src: "#{url_for("/pictures#{photo.path}")}"}
+  .col-sm-6
+    %table.table.table-condensed
+      %tbody
+        -photo.columns.each do |column|
+          %tr
+            %td
+              =column
+            %td
+              =photo[column]
+

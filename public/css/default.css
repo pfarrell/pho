@@ -112,6 +112,7 @@ canvas {
 
 .full {
   max-height: 100%;
+  max-width: 100%;
 }
 .nav img {
   height: 100px;

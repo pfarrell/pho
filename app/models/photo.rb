@@ -9,6 +9,7 @@ class Photo < Sequel::Model
   end
   
   def thumbnail
-    "#{file_name}-thumb.jpg"
+    path = Pathname.new(self.path)
+    "#{path.dirname}/#{file_name}-thumb.jpg"
   end
 end

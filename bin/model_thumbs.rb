@@ -5,8 +5,10 @@ require 'pathname'
 class Thumb
   def self.thumbnail(file)
     i = Magick::Image.read(file).first
-    file_name = Pathname.new(file).basename
-    i.resize_to_fill(100,100).write("public/thumbnails/#{file_name}-thumb.jpg")
+    path = Pathname.new(file)
+    FileUtils.mkdir_p("public/thumbnails/#{path.dirname.to_s}")
+    file_name = path.basename
+    i.resize_to_fill(100,100).write("public/thumbnails/#{path.dirname.to_s}/#{file_name}-thumb.jpg")
   end
 end
 

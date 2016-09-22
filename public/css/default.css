@@ -117,3 +117,20 @@ canvas {
 .nav img {
   height: 100px;
 }
+
+.rotate-1{
+}
+
+.rotate-3 {
+  transform: rotate(180deg);
+}
+
+.rotate-6 {
+  transform: rotate(90deg);
+}
+
+.rotate-8 {
+  transform: rotate(270deg);
+}
+
+

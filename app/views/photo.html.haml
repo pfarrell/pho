@@ -7,7 +7,7 @@
       %img.next{src: "#{url_for("/thumbnails/#{nxt.thumbnail}")}"}
 .row
   .col-sm-6
-    %img.full{src: "#{url_for("/pictures#{photo.path}")}"}
+    %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}
   .col-sm-6
     %table.table.table-condensed
       %tbody

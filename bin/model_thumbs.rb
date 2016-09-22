@@ -14,7 +14,7 @@ photos = Photo.all.map(&:id)
 photos.each_with_index do |id, i|
   photo = Photo[id]
   puts photo.path
-  next if File.exist?(photo.path)
+  next if File.exist?(photo.thumbnail)
   Thumb.thumbnail(photo.path)
   if id % 25 == 0
     print '.'

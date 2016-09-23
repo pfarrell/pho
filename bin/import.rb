@@ -3,7 +3,6 @@ require 'exifr'
 require 'rmagick'
 require 'digest'
 require 'json'
-require 'byebug'
 
 class PhoIn
   def self.import_photo(file_path, tags)
@@ -35,7 +34,7 @@ class PhoIn
         hash: sha.hexdigest,
         path: File.realpath(file),
         size: file.size,
-        date: image.date_time,
+        date: image.date_time || file.ctime,
         exposure_time: image.exif&.exposure_time,
         f_stop: image.exif&.f_number,
         iso_speed: image.iso_speed_ratings,

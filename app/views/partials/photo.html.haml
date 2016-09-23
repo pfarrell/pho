@@ -1,2 +1,2 @@
 %a{href: "#{url_for("/photo/#{photo.id}")}"}
-  %img{class: "rotate-#{photo.orientation}", src: "#{url_for("/thumbnails/#{photo.thumbnail}")}"}
+  %img{class: "rotate-#{photo.orientation}", src: "#{url_for("/#{photo.thumbnail}")}"}

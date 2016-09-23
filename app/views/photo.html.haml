@@ -1,10 +1,10 @@
 .nav
   -if prev
     %a.thumb{href: "#{url_for("/photo/#{prev.id}")}"}
-      %img.prev{class: "rotate-#{prev.orientation}", src: "#{url_for("/thumbnails/#{prev.thumbnail}")}"}
+      %img.prev{class: "rotate-#{prev.orientation}", src: "#{url_for("/#{prev.thumbnail}")}"}
   -if nxt
     %a.thumb.pull-right{href: "#{url_for("/photo/#{nxt.id}")}"}
-      %img.next{class: "rotate-#{nxt.orientation}", src: "#{url_for("/thumbnails/#{nxt.thumbnail}")}"}
+      %img.next{class: "rotate-#{nxt.orientation}", src: "#{url_for("/#{nxt.thumbnail}")}"}
 .row
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}

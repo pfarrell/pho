@@ -133,4 +133,15 @@ canvas {
   transform: rotate(270deg);
 }
 
+.sp-top-sm {
+  margin-top: 2em;
+}
+
+.sp-top-xl {
+  margin-top: 6em;
+}
+
+.sp-bottom-sm {
+  margin-bottom: 1em;
+}
 

@@ -9,12 +9,15 @@
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}
   .col-sm-6
-    %table.table.table-condensed
-      %tbody
-        -photo.columns.each do |column|
-          %tr
-            %td
-              =column
-            %td
-              =photo[column]
-
+    .sp-bottom-sm
+      %button.btn{ data: { toggle: "collapse", target: "#photo_info" } }
+        Photo Information
+    #photo_info.collapse
+      %table.table.table-condensed
+        %tbody
+          -photo.columns.each do |column|
+            %tr
+              %td
+                =column
+              %td
+                =photo[column]

@@ -16,6 +16,15 @@ class App < Sinatra::Application
   set :session_secret, ENV["APP_SESSION_SECRET"] || "youshouldreallychangethis"
   set :views, Proc.new { File.join(root, "app/views") }
 
+  helpers do
+
+    def current_user
+      cookie = request.cookies["auth"]
+      cookie ? User.new(cookie) : nil
+    end
+
+  end
+
   def page_seq(curr_page, page_count)
     start = curr_page > 5 ? curr_page - 5 : 1
     stop = page_count - curr_page > 5 ? curr_page + 5 : page_count

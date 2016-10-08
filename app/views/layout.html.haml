@@ -26,10 +26,11 @@
           %li
             %a{href: "#{url_for("/")}"}
               Menu stuff goes here
+        = haml :'partials/profile', locals: {user: current_user}
     .container#content
       =yield
     .container.footer
-      A 
+      A
       %a{href:"https://patf.net"}
         patf
       joint

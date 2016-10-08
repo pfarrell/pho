@@ -1,6 +1,9 @@
 require 'sequel'
 require 'pg'
 require 'logger'
+require 'rmagick'
+require 'base64'
+require 'json'
 
 $console = ENV['RACK_ENV'] == 'development' ? Logger.new(STDOUT) : nil
 DB = Sequel.connect(
@@ -19,8 +22,8 @@ DB.pool.connection_validation_timeout = 300
 Sequel::Model.plugin :timestamps
 Sequel::Model.plugin :json_serializer
 
-require 'rmagick'
 require 'models/camera'
 require 'models/file'
 require 'models/photo'
 require 'models/tag'
+require 'models/user'

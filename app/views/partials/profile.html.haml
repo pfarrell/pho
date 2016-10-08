@@ -1,0 +1,12 @@
+-if
+%ul.nav.navbar-nav.pull-right
+  %li.dropdown
+    %a.dropdown-toggle{href: "#", role: "button", aria: { haspopup: "true", expanded: "false"}, data: { toggle: "dropdown"}}
+      =current_user[:name]
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        %a{href: "#{current_user[:profile_url]}"}
+          Profile
+      %li
+        %a{href: "#{current_user[:logout_url]}"}

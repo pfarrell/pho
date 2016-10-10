@@ -7,3 +7,4 @@ coverage
 .bundle
 
 .byebug_history
+.ruby-version

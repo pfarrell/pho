@@ -23,6 +23,16 @@ class App < Sinatra::Application
       cookie ? User.new(cookie) : nil
     end
 
+    def login_location
+      puts ENV["RACK_ENV"]
+      case ENV["RACK_ENV"] || "development"
+      when "development"
+        "http://localhost:9292/application/2/login"
+      when "production"
+        "https://patf.net/moth/2/login"
+      end
+    end
+
   end
 
   def page_seq(curr_page, page_count)

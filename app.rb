@@ -33,6 +33,9 @@ class App < Sinatra::Application
       end
     end
 
+    def protected
+    end
+
   end
 
   def page_seq(curr_page, page_count)

@@ -20,16 +20,22 @@
           %span.icon-bar
           %span.icon-bar
         %a.navbar-brand{href:"#{url_for("/")}"}
-          App
+          Pho
       .collapse.navbar-collapse#navbar-collapse
         %ul.nav.navbar-nav
           %li
             %a{href: "#{url_for("/")}"}
               Menu stuff goes here
         = haml :'partials/profile', locals: {user: current_user}
-    .container#content
-      =yield
-    .container.footer
+    #wrap
+      .container#content
+        -if locals.has_key?(:error_message)
+          .alert.alert-danger
+            %a.close{data: { dismiss: "alert" }, aria: { label: "close" } }
+              &times;
+            =error_message
+        =yield
+    %footer.footer
       A
       %a{href:"https://patf.net"}
         patf

@@ -135,7 +135,7 @@ canvas {
   -moz-transform-origin: left bottom;
   -ms-transform-origin: left bottom;
   -o-transform-origin: left bottom;
-  transform-origin: left bottom; 
+  transform-origin: left bottom;
 }
 
 .rotate-8 {
@@ -144,7 +144,7 @@ canvas {
   /*-moz-transform-origin: right top; */
   -ms-transform: translateX(-100%) rotate(270deg); /* IE9 */
   -o-transform: translateX(-100%) rotate(270deg); /* Opera */
-  transform: translateX(-100%) rotate(270deg); /* W3C */  
+  transform: translateX(-100%) rotate(270deg); /* W3C */
   -webkit-transform-origin: top right;
   -moz-transform-origin: top right;
   -ms-transform-origin: top right;
@@ -164,3 +164,19 @@ canvas {
   margin-bottom: 1em;
 }
 
+#wrap {
+  min-height: 100%;
+}
+
+#content {
+  overflow: auto;
+  padding-bottom: 150px;
+}
+
+.footer {
+  position: relative;
+  margin-top: -150px;
+  height: 150px;
+  clear: both;
+  padding-top: 20px;
+}

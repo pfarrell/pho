@@ -29,7 +29,7 @@ class App < Sinatra::Application
       when "development"
         "http://localhost:9292/application/2/login"
       when "production"
-        "https://patf.net/moth/2/login"
+        "https://patf.net/moth/application/2/login"
       end
     end
 

@@ -1,15 +1,25 @@
 require 'spec_helper'
 
 describe 'App' do
-  it "should allow access to the home page" do
-    get "/"
-    expect(last_response).to be_ok
-    expect(last_response.body).to match(/cioa, stranger/)
+
+  def authenticate
+    set_cookie "auth=#{Base64.encode64({test: 'hello'}.to_json)}"
   end
 
-  it "should allow access to the home page with query string" do
-    get "/?name=Pat"
-    expect(last_response).to be_ok
-    expect(last_response.body).to match(/cioa, Pat/)
+  ["/"].each do |path|
+    it "authenticates access and redirects #{path}" do
+      authenticate
+      get "/"
+      expect(last_response).to be_redirect
+    end
   end
+
+  ["/photos/recent"].each do |path|
+    it "authenticates access to #{path}" do
+      authenticate
+      get "/"
+      expect(last_response).to be_redirect
+    end
+  end
+
 end

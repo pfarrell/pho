@@ -1,5 +1,5 @@
 require 'simplecov'
-require 'test/unit'
+#require 'test/unit'
 require 'rack/test'
 
 SimpleCov.start do

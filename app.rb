@@ -24,7 +24,6 @@ class App < Sinatra::Application
     end
 
     def login_location
-      puts ENV["RACK_ENV"]
       case ENV["RACK_ENV"] || "development"
       when "development"
         "http://localhost:9292/application/2/login"

@@ -180,3 +180,7 @@ canvas {
   clear: both;
   padding-top: 20px;
 }
+
+.faded {
+  opacity: 0.2;
+}

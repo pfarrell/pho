@@ -22,7 +22,7 @@ class App < Sinatra::Application
   get "/photos/recent/:page" do
     protected(request.fullpath)
     page = params[:page].to_i
-    haml :photos, locals: {base: "/photos/recent", photos: Photo.where(hidden: "false").order(Sequel.desc(:date)).paginate(page, 100)}
+    haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100)}
   end
 
   get "/photo/:id" do

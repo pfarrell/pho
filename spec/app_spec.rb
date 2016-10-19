@@ -4,10 +4,6 @@ describe 'App' do
 
   let(:photo) { Photo.new.save }
 
-  before do
-    photo
-  end
-
   def authenticate
     set_cookie "auth=#{Base64.encode64({test: 'hello'}.to_json)}"
   end

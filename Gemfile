@@ -24,8 +24,8 @@ gem 'haml'
 group :development, :test do
   gem 'rspec'
   gem 'simplecov'
+  gem 'simplecov-badge'
+  gem 'test-unit'
   gem 'byebug'
-  gem 'gist'
   gem 'pry'
-  gem 'rspec'
 end

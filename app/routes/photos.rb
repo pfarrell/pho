@@ -1,17 +1,5 @@
 class App < Sinatra::Application
 
-  def proximate(start, direction)
-    ret = start
-    loop do
-      if direction == 'up'
-        ret += 1
-      else
-        ret -= 1
-      end
-      return ret if Photo[ret]
-    end
-  end
-
   get "/photos" do
   end
 

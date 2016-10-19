@@ -3,7 +3,8 @@ public/thumbnails
 public/pictures
 spec/fixtures/*.jpg
 vendor
-coverage
+coverage/**/*
+!coverage/coverage-badge.png
 .bundle
 
 .byebug_history

@@ -121,8 +121,41 @@ canvas {
 .rotate-1{
 }
 
+.rotate-2 {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
 .rotate-3 {
   transform: rotate(180deg);
+}
+
+.rotate-4 {
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+  filter: FlipV;
+  -ms-filter: "FlipV";
+}
+
+.rotate-5 {
+  -moz-transform: scaleX(-1) rotate(90deg);
+  -ms-filter: "FlipH";
+  -o-transform: scaleX(-1) rotate(90deg);
+  -webkit-transform: scaleX(-1) rotate(90deg);
+  transform: scaleX(-1) rotate(90deg);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  -webkit-transform-origin: top left;
+  -moz-transform-origin: top left;
+  -ms-transform-origin: top left;
+  -o-transform-origin: top left;
+  transform-origin: top left;
 }
 
 .rotate-6 {
@@ -136,6 +169,15 @@ canvas {
   -ms-transform-origin: left bottom;
   -o-transform-origin: left bottom;
   transform-origin: left bottom;
+}
+
+.rotate-7 {
+  -moz-transform: scaleX(-1) rotate(270deg);
+  -o-transform: scaleX(-1) rotate(270deg);
+  -webkit-transform: scaleX(-1) rotate(270deg);
+  transform: scaleX(-1) rotate(270deg);
+  filter: FlipH;
+  -ms-filter: "FlipH";
 }
 
 .rotate-8 {

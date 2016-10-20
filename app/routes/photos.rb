@@ -16,8 +16,8 @@ class App < Sinatra::Application
   get "/photo/:id" do
     protected(request.fullpath)
     curr = Photo[params[:id].to_i]
-    prev = Photo.where('date < ?', curr.date).order(Sequel.desc(:date)).first
-    nxt = Photo.where('date > ?', curr.date).order(:date).first
+    prev = Photo.where('date < ?', curr.date).order(Sequel.desc(:date)).first(3)
+    nxt = Photo.where('date > ?', curr.date).order(:date).first(3)
     haml :photo, locals: {photo: curr, nxt: nxt, prev: prev}
   end
 

@@ -1,15 +1,12 @@
 .row.sp-bottom-sm
-  -if prev
-    .col-sm-1.col-sm-offset-4
-      %a.thumb{href: "#{url_for("/photo/#{prev.id}")}"}
-        %img.prev{class: "rotate-#{prev.orientation}", src: "#{url_for("/#{prev.thumbnail}")}"}
-  -else
-    .col-sm-5
-      &nbsp;
-  -if nxt
-    .col-sm-1.col-sm-offset-2
-      %a.thumb{href: "#{url_for("/photo/#{nxt.id}")}"}
-        %img.next{class: "rotate-#{nxt.orientation}", src: "#{url_for("/#{nxt.thumbnail}")}"}
+  -prev.each do |thumb|
+    .col-sm-1
+      %a.thumb{href: "#{url_for("/photo/#{thumb.id}")}"}
+        %img.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
+  -nxt.each do |thumb|
+    .col-sm-1
+      %a.thumb{href: "#{url_for("/photo/#{thumb.id}")}"}
+        %img.next{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
 .row
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}

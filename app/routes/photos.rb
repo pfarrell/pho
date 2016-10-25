@@ -8,13 +8,13 @@ class App < Sinatra::Application
   end
 
   get "/photos/recent/:page" do
-    protected(request.fullpath)
+    protected
     page = params[:page].to_i
     haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100)}
   end
 
   get "/photo/:id" do
-    protected(request.fullpath)
+    protected
     curr = Photo[params[:id].to_i]
     prev = Photo.where('date < ?', curr.date).order(Sequel.desc(:date)).first(3)
     nxt = Photo.where('date > ?', curr.date).order(:date).first(3)

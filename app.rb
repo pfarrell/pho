@@ -33,7 +33,7 @@ class App < Sinatra::Application
     end
 
     def protected(return_to=nil)
-      url = return_to ? "#{login_location}?return_to=#{return_to}" : "#{login_location}?return_to=#{request.url}#{request.path}"
+      url = return_to ? "#{login_location}?return_to=#{return_to}" : "#{login_location}?return_to=#{request.url}"
       redirect url unless current_user
     end
 

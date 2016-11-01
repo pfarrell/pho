@@ -18,7 +18,7 @@ class App < Sinatra::Application
     curr = Photo[params[:id].to_i]
     prev = Photo.where('date < ?', curr.date).order(Sequel.desc(:date)).first(3)
     nxt = Photo.where('date > ?', curr.date).order(:date).first(3)
-    haml :photo, locals: {photo: curr, nxt: nxt, prev: prev}
+    haml :photo, locals: {photo: curr, nxt: nxt, prev: prev, user_id: current_user.id}
   end
 
   put '/photo/:id' do
@@ -26,5 +26,14 @@ class App < Sinatra::Application
     photo = Photo[params[:id].to_i]
     photo.hidden = params.keys.include?('hidden')
     photo.save.to_json
+  end
+
+  post '/photo/:id/favorite' do
+    require 'byebug'
+    byebug
+    protected
+    photo = Photo[params[:id].to_i]
+    favorite = Favorite.find_or_create(photo: photo, user_id: current_user.id)
+    favorite.save.to_json
   end
 end

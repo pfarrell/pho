@@ -15,8 +15,10 @@
       %button.btn{ data: { toggle: "collapse", target: "#photo_info" } }
         Photo Information
     #photo_info.collapse
-      %form.photo
+      %form.hidden_photo
         %input.form-control{type:"checkbox", name:"hidden", checked: photo.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) {update_photo(#{photo.id})}"}
+      %form.favorite
+        %input.form-control{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) {favorite(#{photo.id})}"}
       %table.table.table-condensed
         %tbody
           -photo.columns.each do |column|
@@ -26,8 +28,14 @@
               %td
                 =photo[column]
 :javascript
+  function favorite(id) {
+    var form=$(".favorite");
+    var url = '#{url_for("/photo/#{photo.id}/favorite")}';
+    return post(form, url);
+  }
+
   function update_photo(id) {
-    var form=$(".photo");
+    var form=$(".hidden_photo");
     var url = '#{url_for("/photo/#{photo.id}")}';
     return put(form, url);
   }

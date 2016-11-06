@@ -14,7 +14,7 @@ class Thumb
   end
 end
 
-photos = Photo.all.map(&:id)
+photos = Photo.where(thumbnail: nil).map(&:id)
 photos.each_with_index do |id, i|
   photo = Photo[id]
   puts photo.path

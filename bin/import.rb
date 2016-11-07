@@ -30,6 +30,7 @@ class PhoIn
     sha= Digest::SHA256.file(file)
     photo = Photo.find(hash: sha.hexdigest)
     if(photo.nil?)
+      print "--> #{file.path}"
       photo = Photo.new(
         hash: sha.hexdigest,
         path: File.realpath(file),
@@ -65,5 +66,4 @@ class PhoIn
 end
 
 image, tags = ARGV
-PhoIn.import_photo(image, tags)
-
+PhoIn.import_photo(image, tags) 

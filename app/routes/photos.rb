@@ -29,11 +29,20 @@ class App < Sinatra::Application
   end
 
   post '/photo/:id/favorite' do
-    require 'byebug'
-    byebug
     protected
     photo = Photo[params[:id].to_i]
     favorite = Favorite.find_or_create(photo: photo, user_id: current_user.id)
     favorite.save.to_json
   end
+
+  delete '/photo/:id/favorite' do
+    require 'byebug'
+    byebug
+    protected
+    photo = Photo[params[:id].to_i]
+    favorite = Favorite.find(photo: photo, user_id: current_user.id)
+    photo.remove_favorite(favorite)
+    photo.to_json
+  end
+
 end

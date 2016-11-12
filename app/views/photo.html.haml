@@ -7,6 +7,17 @@
     .col-sm-1
       %a.thumb{href: "#{url_for("/photo/#{thumb.id}")}"}
         %img.next{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
+  .col-sm-6
+    %form.hidden_photo
+      .checkbox
+        %label
+          %input.form-control.input-sm{type:"checkbox", name:"hidden", checked: photo.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_photo(#{photo.id}) }"}
+            Hidden?
+    %form.favorite_photo
+      .form-group.checkbox
+        %label
+          %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_favorite(#{photo.id}, this.checked) }"}
+            Favorited?
 .row
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}
@@ -15,16 +26,6 @@
       %button.btn{ data: { toggle: "collapse", target: "#photo_info" } }
         Photo Information
     #photo_info.collapse
-      %form.hidden_photo
-        .form-group.checkbox
-          %label
-            %input.form-control.input-sm{type:"checkbox", name:"hidden", checked: photo.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_photo(#{photo.id}) }"}
-              Hidden?
-      %form.favorite_photo
-        .form-group.checkbox
-          %label
-            %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_favorite(#{photo.id}, this.checked) }"}
-              Favorited?
       %table.table.table-condensed
         %tbody
           -photo.columns.each do |column|

@@ -1,7 +1,5 @@
 class App < Sinatra::Application
 
-  get "/photos" do
-  end
 
   get "/photos/recent" do
     redirect url_for("/photos/recent/1")
@@ -11,6 +9,27 @@ class App < Sinatra::Application
     protected
     page = params[:page].to_i
     haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100)}
+  end
+
+  get "/photos" do
+    photos = Photo.search(params)
+    haml :photos, locals: {
+      base: "/photos/recent",
+      photos: photos.order(Sequel.desc(:date)).paginate(1, 100),
+      start_date: params[:start_date],
+      end_date: params[:end_date]
+    }
+  end
+
+  get "/photos/:page" do
+    page = params[:page].to_i
+    photos = Photo.search(params)
+    haml :photos, locals: {
+      base: "/photos",
+      photos: photos.order(Sequel.desc(:date)).paginate(page, 100),
+      start_date: params[:start_date],
+      end_date: params[:end_date]
+    }
   end
 
   get "/photo/:id" do
@@ -36,8 +55,6 @@ class App < Sinatra::Application
   end
 
   delete '/photo/:id/favorite' do
-    require 'byebug'
-    byebug
     protected
     photo = Photo[params[:id].to_i]
     favorite = Favorite.find(photo: photo, user_id: current_user.id)

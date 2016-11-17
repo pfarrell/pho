@@ -10,6 +10,7 @@
     %link{:rel => "stylesheet", :href => "#{url_for '/css/default.css'}", :type => "text/css", :media => "screen" }
     %link{:href=>"#{url_for('/libs/bootstrap/dist/css/bootstrap.min.css')}", :rel=>"stylesheet"}
     %script{:src=>"#{url_for('/libs/bootstrap/dist/js/bootstrap.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}"}
     %script{:type => "text/javascript", :src => "#{url_for '/js/form_actions.js'}"}
   %body
     %nav.navbar.navbar-default{role: "navigation"}
@@ -25,9 +26,8 @@
       .collapse.navbar-collapse#navbar-collapse
         %ul.nav.navbar-nav
           %li
-            %a{href: "#{url_for("/")}"}
-              Menu stuff goes here
-        = haml :'partials/profile', locals: {user: current_user}
+            = haml :'partials/search', locals: {user: current_user}.merge(locals)
+        = haml :'partials/profile', locals: {user: current_user}.merge(locals)
     #wrap
       .container#content
         -if locals.has_key?(:error_message)

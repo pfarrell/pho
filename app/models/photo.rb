@@ -11,4 +11,12 @@ class Photo < Sequel::Model
   def favorited?(user_id)
     Favorite.where(photo: self, user_id: user_id).count > 0
   end
+
+  def self.search(query)
+    start_date=query[:start_date] || '2000-01-01'
+    end_date=query[:end_date].empty? ? DateTime.now :  query[:end_date]
+    Photo
+      .where{date > start_date}
+      .where{date < end_date}
+  end
 end

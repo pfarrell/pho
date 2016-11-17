@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "bootstrap": "~3.3.5"
+    "bootstrap-datepicker": "1.6.4"
   },
   "homepage": "https://github.com/pfarrell/pho",
   "authors": [

@@ -18,6 +18,12 @@ class App < Sinatra::Application
 
   helpers do
 
+    def start_date
+    end
+
+    def end_date
+    end
+
     def current_user
       cookie = request.cookies["auth"]
       cookie ? User.new(cookie) : nil

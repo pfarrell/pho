@@ -13,10 +13,19 @@ class Photo < Sequel::Model
   end
 
   def self.search(query)
-    start_date=query[:start_date] || '2000-01-01'
-    end_date=query[:end_date].empty? ? DateTime.now :  query[:end_date]
-    Photo
-      .where{date > start_date}
-      .where{date < end_date}
+    photos = apply_params(Photo, query)
+    require 'byebug'
+    byebug
+    photos
+  end
+
+  def self.apply_params(klass, query)
+    klass = klass.daterange(query[:daterange]) if query[:daterange]
+    klass
+  end
+
+  def self.daterange(range)
+    start, stop = range.split('/')
+    where{date >= start}.where{date <= stop}
   end
 end

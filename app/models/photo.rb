@@ -13,10 +13,7 @@ class Photo < Sequel::Model
   end
 
   def self.search(query)
-    photos = apply_params(Photo, query)
-    require 'byebug'
-    byebug
-    photos
+    apply_params(Photo, query)
   end
 
   def self.apply_params(klass, query)

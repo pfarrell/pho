@@ -2,8 +2,9 @@
   "name": "pho",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "~3.3.5",
-    "bootstrap-datepicker": "1.6.4"
+    "moment": "^2.16.0",
+    "bootstrap-daterangepicker": "^2.1.24",
+    "bootstrap": "^3.3.7"
   },
   "homepage": "https://github.com/pfarrell/pho",
   "authors": [

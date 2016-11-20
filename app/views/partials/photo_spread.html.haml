@@ -1,4 +1,4 @@
 =haml :"partials/paging", locals: {model: photos, base: base}
 #photos
   -photos.each_with_index do |photo, i|
-    =haml :"partials/photo", locals: {photo: photo, idx: i}
+    =haml :"partials/photo", locals: {photo: photo, idx: i}.merge(symbolize_keys(params))

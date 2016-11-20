@@ -23,6 +23,6 @@ class Photo < Sequel::Model
 
   def self.daterange(range)
     start, stop = range.split('/')
-    where{date >= start}.where{date <= stop}
+    where{date >= start}.where{date <= stop} unless start == nil
   end
 end

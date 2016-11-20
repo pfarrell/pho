@@ -6,6 +6,7 @@ require 'sinatra/respond_to'
 require 'sinatra/cookies'
 require 'securerandom'
 require 'haml'
+require 'uri'
 
 class App < Sinatra::Application
   helpers Sinatra::UrlForHelper
@@ -17,6 +18,13 @@ class App < Sinatra::Application
   set :views, Proc.new { File.join(root, "app/views") }
 
   helpers do
+
+    def daterange
+    end
+
+    def symbolize_keys(my_hash) 
+      Hash[my_hash.map{|(k,v)| [k.to_sym,v]}]
+    end
 
     def start_date
     end

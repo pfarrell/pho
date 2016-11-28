@@ -22,7 +22,10 @@
           %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_favorite(#{photo.id}, this.checked) }"}
             Favorited?
     .sp-bottom-sm
-      %button.btn{ data: { toggle: "collapse", target: "#photo_info" } }
+      %a.btn.btn-primary{href: "#{url_for("/pictures#{photo.path}")}", target: "_"}
+        Raw Image
+    .sp-bottom-sm
+      %button.btn.btn-info{ data: { toggle: "collapse", target: "#photo_info" } }
         Photo Information
     #photo_info.collapse
       %table.table.table-condensed

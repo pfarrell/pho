@@ -17,7 +17,7 @@ end
 photos = Photo.where(thumbnail: nil).map(&:id)
 photos.each_with_index do |id, i|
   photo = Photo[id]
-  puts photo.path
+  #puts photo.path
   next if File.exist?(photo.thumbnail) unless photo.thumbnail.nil?
 
   Thumb.thumbnail(photo)

@@ -10,15 +10,6 @@ class App < Sinatra::Application
     haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}
   end
 
-  get "/photos" do
-    photos = Photo.search(params)
-    haml :photos, locals: {
-      base: "/photos/recent",
-      photos: photos.order(Sequel.desc(:date)).paginate(1, 100),
-      daterange: params[:daterange],
-    }
-  end
-
   get "/photos/:page" do
     page = params[:page].to_i
     photos = Photo.search(params)

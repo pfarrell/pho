@@ -15,7 +15,7 @@ class App < Sinatra::Application
     search = Search[params[:id].to_i]
     page = params[:page].to_i
     photos = Photo.where('date between ? and ?', search.start_date, search.end_date)
-                  .order(Sequel.desc(:date))
+                  .order(:date)
                   .paginate(page, 100)
     haml :photos, locals: { base: "/search/#{params[:id]}", photos: photos }
   end

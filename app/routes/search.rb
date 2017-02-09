@@ -17,7 +17,7 @@ class App < Sinatra::Application
     photos = Photo.where('date between ? and ?', search.start_date, search.end_date)
                   .order(:date)
                   .paginate(page, 100)
-    haml :photos, locals: { base: "/search/#{params[:id]}", photos: photos }
+    haml :photos, locals: { base: "/search/#{params[:id]}", photos: photos, daterange: search.daterange }
   end
 
 end

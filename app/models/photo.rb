@@ -3,6 +3,7 @@ class Photo < Sequel::Model
   one_to_one   :file
   many_to_many :tags
   one_to_many  :favorites
+  many_to_many :albums
 
   def file_name
     Pathname.new(self.path).basename

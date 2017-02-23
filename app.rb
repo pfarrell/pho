@@ -1,5 +1,6 @@
 $: << File.expand_path('../app', __FILE__)
 
+require 'byebug'
 require 'sinatra'
 require 'sinatra/url_for'
 require 'sinatra/respond_to'
@@ -22,7 +23,7 @@ class App < Sinatra::Application
     def daterange
     end
 
-    def symbolize_keys(my_hash) 
+    def symbolize_keys(my_hash)
       Hash[my_hash.map{|(k,v)| [k.to_sym,v]}]
     end
 

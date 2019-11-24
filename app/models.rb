@@ -23,7 +23,7 @@ Sequel::Model.plugin :timestamps
 Sequel::Model.plugin :json_serializer
 
 require 'models/camera'
-require 'models/file'
+#require 'models/file'
 require 'models/photo'
 require 'models/tag'
 require 'models/user'

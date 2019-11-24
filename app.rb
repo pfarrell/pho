@@ -3,7 +3,7 @@ $: << File.expand_path('../app', __FILE__)
 require 'byebug'
 require 'sinatra'
 require 'sinatra/url_for'
-require 'sinatra/respond_to'
+require 'sinatra/respond_with'
 require 'sinatra/cookies'
 require 'securerandom'
 require 'haml'
@@ -12,7 +12,7 @@ require 'uri'
 class App < Sinatra::Application
   helpers Sinatra::UrlForHelper
   helpers Sinatra::Cookies
-  register Sinatra::RespondTo
+  register Sinatra::RespondWith
 
   enable :sessions
   set :session_secret, ENV["APP_SESSION_SECRET"] || "youshouldreallychangethis"

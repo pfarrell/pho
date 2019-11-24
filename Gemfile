@@ -1,5 +1,4 @@
 source "https://rubygems.org"
-ruby "2.3.0"
 
 gem 'rake'
 
@@ -12,8 +11,8 @@ gem 'pg'
 
 gem 'rmagick'
 
-gem 'capistrano', '~> 3.4.0'
-gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano'
+gem 'capistrano-bundler'
 gem 'capistrano-bower'
 gem 'capistrano-rvm', require: false
 

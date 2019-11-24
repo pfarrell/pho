@@ -15,7 +15,6 @@ class App < Sinatra::Application
   end
 
   get '/albums/:page' do
-    protected
     require 'byebug'
     page = params[:page].to_i
     albums = Album.where(user_id: current_user.id).order(:name).paginate(page, 50)
@@ -23,7 +22,6 @@ class App < Sinatra::Application
   end
 
   post '/albums' do
-    protected
     album = Album.create(name: params[:name], user_id: current_user.id)
     redirect("/album/#{album.id}")
   end

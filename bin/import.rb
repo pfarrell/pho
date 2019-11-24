@@ -1,5 +1,6 @@
 require './app'
 require 'exifr'
+require 'exifr/jpeg'
 require 'rmagick'
 require 'digest'
 require 'json'

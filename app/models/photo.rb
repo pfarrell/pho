@@ -10,7 +10,7 @@ class Photo < Sequel::Model
   end
 
   def favorited?(user_id)
-    Favorite.where(photo: self, user_id: user_id).count > 0
+    Favorite.where(photo: self, user_id: user_id.to_s).count > 0
   end
 
   def self.search(query)

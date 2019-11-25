@@ -20,6 +20,8 @@ gem 'exifr'
 
 gem 'haml'
 
+gem 'bcrypt'
+
 group :development, :test do
   gem 'rspec'
   gem 'simplecov'
@@ -27,4 +29,5 @@ group :development, :test do
   gem 'test-unit'
   gem 'byebug'
   gem 'pry'
+  gem 'irb'
 end

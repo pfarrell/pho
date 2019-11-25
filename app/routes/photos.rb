@@ -21,8 +21,8 @@ class App < Sinatra::Application
 
   get "/photo/:id" do
     curr = Photo[params[:id].to_i]
-    prev = Photo.where('date < ?', curr.date).order(Sequel.desc(:date)).first(3).reverse
-    nxt = Photo.where('date > ?', curr.date).order(:date).first(3)
+    prev = Photo.where(Sequel.lit('date < ?', curr.date)).order(Sequel.desc(:date)).first(3).reverse
+    nxt = Photo.where(Sequel.lit('date > ?', curr.date)).order(:date).first(3)
     haml :photo, locals: {photo: curr, nxt: nxt, prev: prev, user_id: current_user.id}.merge(symbolize_keys(params))
   end
 

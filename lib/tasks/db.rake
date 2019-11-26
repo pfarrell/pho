@@ -1,4 +1,4 @@
-require './app'
+require './app/db'
 
 namespace :db do
   task :migrate do

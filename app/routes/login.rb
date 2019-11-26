@@ -1,6 +1,5 @@
 class App < Sinatra::Application
   post "/login" do
-    byebug
     user = User.find(username: params[:username])
     raise Exception('user not found') if user.nil?
     valid = user.check_password(params[:password])

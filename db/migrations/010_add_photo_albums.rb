@@ -2,7 +2,7 @@ Sequel.migration do
   change do
     create_table(:albums) do
       primary_key :id
-      String      :user_id
+      Integer      :user_id
       String      :name
       TrueClass   :public, default: true
       DateTime    :created_at

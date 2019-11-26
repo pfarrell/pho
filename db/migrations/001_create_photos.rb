@@ -3,9 +3,9 @@ Sequel.migration do
     create_table(:photos) do
       primary_key :id
       String      :path
-      Fixnum      :camera_id
+      Integer     :camera_id
       String      :hash
-      Fixnum      :size
+      Integer      :size
       DateTime    :date
       Float       :exposure_time
       Float       :f_stop

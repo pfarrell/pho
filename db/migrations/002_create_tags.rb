@@ -9,8 +9,8 @@ Sequel.migration do
 
     create_table(:photos_tags) do
       primary_key :id
-      Fixnum      :photo_id
-      Fixnum      :tag_id
+      Integer      :photo_id
+      Integer      :tag_id
       DateTime    :created_at
       DateTime    :updated_at
     end

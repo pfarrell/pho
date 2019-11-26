@@ -66,3 +66,12 @@ end
 
 require 'models'
 require 'routes'
+
+require 'models/camera'
+#require 'models/file'
+require 'models/photo'
+require 'models/tag'
+require 'models/user'
+require 'models/favorite'
+require 'models/search'
+require 'models/album'

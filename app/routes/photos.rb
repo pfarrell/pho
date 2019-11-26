@@ -34,7 +34,7 @@ class App < Sinatra::Application
 
   post '/photo/:id/favorite' do
     photo = Photo[params[:id].to_i]
-    favorite = Favorite.find_or_create(photo: photo, user_id: current_user.id)
+    favorite = Favorite.find_or_create(photo: photo, user_id: current_user.id.to_s)
     favorite.save.to_json
   end
 

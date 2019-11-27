@@ -9,7 +9,8 @@ class App < Sinatra::Application
       case type.to_s
       when '*/*'
         cookies[:auth] = generate_token(user)
-        halt redirect url_for("/photos/recent")
+        destination = params[:return_to] || "/photos/recent"
+        halt redirect url_for(destination)
       end
     end
   end

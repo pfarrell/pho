@@ -43,18 +43,9 @@ class App < Sinatra::Application
       return @user
     end
 
-    def login_location
-      case ENV["RACK_ENV"] || "development"
-      when "development"
-        "http://localhost:9292/application/2/login"
-      when "production"
-        "https://patf.net/moth/application/2/login"
-      end
-    end
-
     def protected(return_to=nil)
-      url = return_to ? "#{login_location}?return_to=#{return_to}" : "#{login_location}?return_to=#{request.url}"
-      redirect url unless current_user
+      url = return_to ? "/?return_to=#{return_to}" : "/?return_to=#{request.url}"
+      redirect url unless current_user(cookies[:auth])
     end
 
   end

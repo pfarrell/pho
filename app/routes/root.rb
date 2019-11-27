@@ -7,4 +7,9 @@ class App < Sinatra::Application
     end
     #redirect url_for("/photos/recent")
   end
+
+  get "/logout" do
+    response.delete_cookie(:auth)
+    redirect url_for("/")
+  end
 end

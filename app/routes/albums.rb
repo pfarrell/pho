@@ -15,7 +15,6 @@ class App < Sinatra::Application
   end
 
   get '/albums/:page' do
-    require 'byebug'
     page = params[:page].to_i
     albums = Album.where(user_id: current_user.id).order(:name).paginate(page, 50)
     haml :albums, locals: { albums: albums }

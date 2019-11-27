@@ -21,6 +21,7 @@ gem 'exifr'
 gem 'haml'
 
 gem 'bcrypt'
+gem 'jwt'
 
 group :development, :test do
   gem 'rspec'

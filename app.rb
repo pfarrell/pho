@@ -8,6 +8,7 @@ require 'sinatra/cookies'
 require 'securerandom'
 require 'haml'
 require 'uri'
+require 'jwt'
 
 class App < Sinatra::Application
   helpers Sinatra::UrlForHelper
@@ -33,8 +34,13 @@ class App < Sinatra::Application
     def end_date
     end
 
-    def current_user
-      User[1]
+    def current_user()
+      return @user
+    end
+
+    def current_user(token)
+      @user = validate_token(token)
+      return @user
     end
 
     def login_location
@@ -59,8 +65,21 @@ class App < Sinatra::Application
     return (start..stop)
   end
 
-  before do
-    response.set_cookie(:appc, value: SecureRandom.uuid, expires: Time.now + 3600 * 24 * 365 * 10) if request.cookies["bmc"].nil?
+  def generate_token(user)
+    exp = Time.now.to_i + 4 * 3600
+    payload = { exp: exp, user_id: user.id }
+    secret = ENV["AUTH_KEY"] || "my$ecretK3y"
+    JWT.encode payload, secret, 'HS256'
+  end
+
+  def validate_token(token)
+    begin
+      secret = ENV["AUTH_KEY"] || "my$ecretK3y"
+      decoded = JWT.decode(token, secret, true, { algorithm: 'HS256' })
+      return User[decoded[0]['user_id']]
+    rescue
+      return nil
+    end
   end
 end
 

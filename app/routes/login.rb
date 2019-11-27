@@ -1,4 +1,5 @@
 class App < Sinatra::Application
+
   post "/login" do
     user = User.find(username: params[:username])
     raise Exception('user not found') if user.nil?
@@ -7,6 +8,7 @@ class App < Sinatra::Application
     request.accept.each do |type|
       case type.to_s
       when '*/*'
+        cookies[:auth] = generate_token(user)
         halt redirect url_for("/photos/recent")
       end
     end

@@ -1,4 +1,7 @@
 class App < Sinatra::Application
+  before do
+    @user = current_user(cookies[:auth])
+  end
 
   get "/photos/recent" do
     redirect url_for("/photos/recent/1")

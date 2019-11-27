@@ -33,6 +33,7 @@ GEM
     irb (1.1.0)
       reline (>= 0.0.1)
     json (2.2.0)
+    jwt (2.2.1)
     method_source (0.9.2)
     multi_json (1.14.1)
     mustermann (1.0.3)
@@ -106,6 +107,7 @@ DEPENDENCIES
   exifr
   haml
   irb
+  jwt
   pg
   pry
   rake

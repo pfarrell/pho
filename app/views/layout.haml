@@ -28,7 +28,7 @@
       .collapse.navbar-collapse#navbar-collapse
         %ul.nav.navbar-nav
           %li
-            = haml :'partials/search', locals: {user: current_user}.merge(locals)
+            = haml :'partials/search', locals: {user: @user}.merge(locals)
     #wrap
       .container#content
         -if locals.has_key?(:error_message)

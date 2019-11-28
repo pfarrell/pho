@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+ruby '2.6.5'
 
 gem 'rake'
 
@@ -31,4 +32,5 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'irb'
+  gem 'shotgun'
 end

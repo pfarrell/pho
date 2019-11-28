@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.4.1'
+lock '3.11.2'
 
 set :application, 'pho'
 set :repo_url, 'git@github.com:pfarrell/pho.git'
@@ -11,7 +11,8 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/pho'
 set :rvm_map_bins, %w{bundle gem rake ruby}
-set :rvm_type, :auto
+set :rvm_type, :user
+set :rvm_ruby_version, '2.6.5'
 
 # Default value for :scm is :git
 set :scm, :git

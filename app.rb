@@ -1,6 +1,5 @@
 $: << File.expand_path('../app', __FILE__)
 
-require 'byebug'
 require 'sinatra'
 require 'sinatra/url_for'
 require 'sinatra/respond_with'

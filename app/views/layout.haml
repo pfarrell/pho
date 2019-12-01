@@ -1,36 +1,19 @@
 <!DOCTYPE html>
-%html
+%html{:lang => "en"}
   %head
     %title#title
       #{@title}
     %meta{:charset => "utf-8"}
-    %meta{:name => "viewport", :content=>"width=device-width, initial-scale=1, maximum-scale=1"}
+    %meta{:name => "viewport", :content=>"width=device-width, initial-scale=1, shrink-to-fit=no"}
     %meta{:name=>"apple-mobile-web-app-capable", :content=>"yes"}
-    %script{:type => "text/javascript", :src => "#{url_for('/libs/jquery/dist/jquery.min.js')}"}
-    %script{:type => "text/javascript", :src => "#{url_for('/libs/moment/min/moment.min.js')}"}
     %link{:rel => "stylesheet", :href => "#{url_for '/css/default.css'}", :type => "text/css", :media => "screen" }
     %link{:href=>"#{url_for('/libs/bootstrap/dist/css/bootstrap.min.css')}", :rel=>"stylesheet"}
-    %script{:src=>"#{url_for('/libs/bootstrap/dist/js/bootstrap.min.js')}"}
-    %script{:type => "text/javascript", :src => "#{url_for('/libs/bootstrap-daterangepicker/daterangepicker.js')}"}
-    %link{:href=>"#{url_for('/libs/bootstrap-daterangepicker/daterangepicker.css')}", :rel=>"stylesheet"}
-    %script{:type => "text/javascript", :src => "#{url_for '/js/form_actions.js'}"}
   %body
-    %nav.navbar.navbar-default{role: "navigation"}
-      .navbar-header
-        %button.navbar-toggle{type:"button", data:{toggle: "collapse", target: "#navbar-collapse"}}
-          %span.sr-only
-            Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        %a.navbar-brand{href:"#{url_for("/")}"}
-          Pho
-      .collapse.navbar-collapse#navbar-collapse
-        %ul.nav.navbar-nav
-          %li
-            = haml :'partials/search', locals: {user: @user}.merge(locals)
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark{role: "navigation"}
+      %a.navbar-brand{href:"#{url_for("/")}"}
+        Pho
     #wrap
-      .container#content
+      .container#content.mt-2
         -if locals.has_key?(:error_message)
           .alert.alert-danger
             %a.close{data: { dismiss: "alert" }, aria: { label: "close" } }
@@ -38,9 +21,14 @@
             =error_message
         =yield
     %footer.footer
-      A
-      %a{href:"https://patf.net"}
-        patf
+      Another
+      %i
+        %a{href:"https://patf.net"}
+          patf
       joint
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/jquery/dist/jquery.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/moment/min/moment.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for '/js/form_actions.js'}"}
 :javascript
 

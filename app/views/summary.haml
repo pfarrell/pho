@@ -1,7 +1,5 @@
--require 'byebug'
--byebug
 -summary.each do |s|
   %h2
     %a{href:"#{s[:link]}"}
-      =key
+      =s[:year]
   #{s[:count]}

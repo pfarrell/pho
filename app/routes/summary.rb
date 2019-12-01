@@ -5,10 +5,8 @@ class App < Sinatra::Application
 
   get "/summary" do
     protected
-    require 'byebug'
-    byebug
     summary = Summary.all.each { |h|
-      h[:year] = h[:year].to_i,
+      h[:year] = h[:year].to_i
       h[:link] = url_for("/summary/#{h[:year].to_i}")
     }
     respond_to do |f|

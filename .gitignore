@@ -2,6 +2,7 @@ public/libs
 public/thumbnails
 public/pictures
 spec/fixtures/*.jpg
+log/*
 vendor
 coverage/**/*
 !coverage/coverage-badge.png

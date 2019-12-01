@@ -7,4 +7,4 @@ require 'routes/photos'
 require 'routes/favorites'
 require 'routes/search'
 require 'routes/albums'
-
+require 'routes/summary'

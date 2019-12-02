@@ -26,4 +26,10 @@ class Photo < Sequel::Model
     start, stop = range.split('/')
     where{date >= start}.where{date <= stop} unless start == nil
   end
+
+  def self.by_month(year, month)
+    Photo.where(Sequel.function(:date_part, 'year', :date) => year)
+      .where(Sequel.function(:date_part, 'month', :date) => month)
+      .order(:date)
+  end
 end

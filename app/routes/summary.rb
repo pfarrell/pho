@@ -22,7 +22,7 @@ class App < Sinatra::Application
       h[:link]  = url_for("/summary/#{params[:year]}/#{h[:month]}")
     }
     respond_to do |f|
-      f.html { haml :summary, locals: {summary: summary, key: :month}}
+      f.html { haml :summary, locals: {summary: summary, key: :month, breadcrumbs: [{'text': "#{params[:year]}", 'url': url_for("/summary/#{params[:year]}"), "active": true}]}}
       f.json { summary.to_json }
     end
   end
@@ -31,7 +31,7 @@ class App < Sinatra::Application
     protected
     photos = Photo.by_month(params[:year], params[:month])
     respond_to do |f|
-      f.html { haml :photos, locals: { base: "/photos/recent", photos: photos} }
+      f.html { haml :photos, locals: { base: "/photos/recent", photos: photos, breadcrumbs: [{'text': "#{params[:year]}", 'url': url_for("/summary/#{params[:year]}")}, {'text': "#{params[:month]}", 'url': url_for("/summary/#{params[:year]}/#{params[:month]}"), "active": true}]} }
       f.json { {year: params[:year], month: params[:month], photos: photos} }
     end
   end

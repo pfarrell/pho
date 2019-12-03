@@ -12,6 +12,18 @@
     %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark{role: "navigation"}
       %a.navbar-brand{href:"#{url_for("/")}"}
         Pho
+      %nav{"aria":{"label": "breadcrumb"}}
+        %ol.breadcrumb
+          %li.breadcrumb-item
+            %a{href: "#{url_for('/summary')}"}
+              ="Summary"
+
+          -if locals.has_key?(:breadcrumbs)
+            -breadcrumbs.each do |bc|
+              %li.breadcrumb-item{ class: ("active" if bc.has_key?(:active))}
+                %a{href: "#{bc[:url]}"}
+                  =bc[:text]
+
     #wrap
       .container#content.mt-2
         -if locals.has_key?(:error_message)

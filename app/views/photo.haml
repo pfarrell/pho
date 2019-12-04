@@ -4,16 +4,22 @@
       %a{href: "#{url_for("/photo/#{thumb.id}")}"}
         %img.img-center.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
   .col-sm-2
-    %a{href: "#{url_for("/photo/#{photo.id}")}"}
-      %img.img-responsive.img-center{class: "rotate-#{photo.orientation}", src: "#{url_for("/#{photo.thumbnail}")}"}
   -nxt.each do |thumb|
     .col-sm-1
       %a{href: "#{url_for("/photo/#{thumb.id}")}"}
         %img.next.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
 .row
+  .col-sm-1.my-auto.display-1
+    -if prev.last
+      %a.text-decoration-none{href: "#{url_for("/photo/#{prev.last.id}")}"}
+        &#xab;
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}
-  .col-sm-6
+  .col-sm-1.my-auto.display-1
+    -if nxt.first
+      %a.text-decoration-none{href: "#{url_for("/photo/#{nxt.first.id}")}"}
+        &#xbb;
+  .col-sm-4
     %form.hidden_photo
       .checkbox
         %label

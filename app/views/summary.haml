@@ -1,7 +1,8 @@
+-div = Math.log(summary.map{|x| x[:count]}.max)
 -summary.each do |s|
   %h2
     %a{href:"#{s[:link]}"}
       =s[key]
-  -(s[:count]/5).times do
+  -(s[:count]/div).ceil.times do
     &#x25a0;&#x25a0;&#x25a0;&#x25a0;&#x25a0;
     

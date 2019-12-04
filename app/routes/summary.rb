@@ -10,7 +10,7 @@ class App < Sinatra::Application
       h[:link] = url_for("/summary/#{h[:year].to_i}")
     }
     respond_to do |f|
-      f.html { haml :summary, locals: {summary: summary, key: :year}}
+      f.html { haml :summary, locals: {title:'Pics By Year', summary: summary, key: :year}}
       f.json { summary.to_json }
     end
   end
@@ -22,7 +22,7 @@ class App < Sinatra::Application
       h[:link]  = url_for("/summary/#{params[:year]}/#{h[:month]}")
     }
     respond_to do |f|
-      f.html { haml :summary, locals: {summary: summary, key: :month, breadcrumbs: [{'text': "#{params[:year]}", 'url': url_for("/summary/#{params[:year]}"), "active": true}]}}
+      f.html { haml :summary, locals: {title: "Pics from #{params[:year]}", summary: summary, key: :month, breadcrumbs: [{'text': "#{params[:year]}", 'url': url_for("/summary/#{params[:year]}"), "active": true}]}}
       f.json { summary.to_json }
     end
   end

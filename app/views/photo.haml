@@ -46,6 +46,7 @@
               %td
                 =photo[column]
 :javascript
+  document.onkeydown = checkKey;
   function update_favorite(id, checked) {
     var form=$(".favorite_photo");
     var url = '#{url_for("/photo/#{photo.id}/favorite")}';
@@ -60,4 +61,16 @@
     var form=$(".hidden_photo");
     var url = '#{url_for("/photo/#{photo.id}")}';
     return put(form, url);
+  }
+
+  function checkKey(e) {
+    e = e || window.event;
+    if (e.keyCode == '37') {
+      // left arrow
+      window.location = "#{url_for("/photo/#{prev.last.id}")}"
+    }
+    else if (e.keyCode == '39') {
+      // right arrow
+      window.location = "#{url_for("/photo/#{nxt.first.id}")}"
+    }
   }

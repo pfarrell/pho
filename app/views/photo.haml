@@ -3,7 +3,7 @@
     .col-sm-1
       %a{href: "#{url_for("/photo/#{thumb.id}")}"}
         %img.img-center.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
-  .col-sm-2
+  .col-sm-1
   -nxt.each do |thumb|
     .col-sm-1
       %a{href: "#{url_for("/photo/#{thumb.id}")}"}
@@ -66,11 +66,12 @@
   function checkKey(e) {
     e = e || window.event;
     if (e.keyCode == '37') {
-      // left arrow
-      window.location = "#{url_for("/photo/#{prev.last.id}")}"
-    }
-    else if (e.keyCode == '39') {
-      // right arrow
-      window.location = "#{url_for("/photo/#{nxt.first.id}")}"
+      if(#{prev.last.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("/photo/#{prev.last&.id}")}"
+      }
+    } else if (e.keyCode == '39') {
+      if(#{nxt.first.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("/photo/#{nxt.first&.id}")}"
+      }
     }
   }

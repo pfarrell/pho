@@ -1,11 +1,12 @@
 .row.sp-bottom-sm
   -prev.each do |thumb|
-    .col-sm-1
+    .col-md-1
       %a{href: "#{url_for("/photo/#{thumb.id}")}"}
         %img.img-center.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
   .col-sm-1
+    &lt;&nbsp;&gt;
   -nxt.each do |thumb|
-    .col-sm-1
+    .col-sm-2
       %a{href: "#{url_for("/photo/#{thumb.id}")}"}
         %img.next.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
 .row

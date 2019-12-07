@@ -36,7 +36,7 @@ class PhoIn
         hash: sha.hexdigest,
         path: File.realpath(file),
         size: file.size,
-        date: image.date_time || file.ctime,
+        date: image.date_time_original || image.date_time_digitized || image.date_time || file.ctime,
         exposure_time: image.exif&.exposure_time,
         f_stop: image.exif&.f_number,
         iso_speed: image.iso_speed_ratings,
@@ -67,4 +67,4 @@ class PhoIn
 end
 
 image, tags = ARGV
-PhoIn.import_photo(image, tags) 
+PhoIn.import_photo(image, tags)

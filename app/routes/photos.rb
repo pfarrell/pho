@@ -8,10 +8,14 @@ class App < Sinatra::Application
     redirect url_for("/photos/recent/1")
   end
 
+  get "/photos/recent/photo/:id" do
+    redirect url_for("/photo/#{params[:id]}")
+  end
+
   get "/photos/recent/:page" do
     protected
     page = params[:page].to_i
-    haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}
+    haml :photos, locals: {base: url_for("/photos/recent"), photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}
   end
 
   get "/photos/:page" do
@@ -19,7 +23,7 @@ class App < Sinatra::Application
     page = params[:page].to_i
     photos = Photo.search(params)
     haml :photos, locals: {
-      base: "/photos",
+      base: url_for("/photos"),
       photos: photos.order(Sequel.desc(:date)).paginate(page, 100),
       daterange: params[:daterange],
     }
@@ -28,9 +32,9 @@ class App < Sinatra::Application
   get "/photo/:id" do
     protected
     curr = Photo[params[:id].to_i]
-    prev = Photo.where(Sequel.lit('date < ?', curr.date)).exclude(id: curr.id).order(:date).last(3).reverse
-    nxt = Photo.where(Sequel.lit('date > ?', curr.date)).exclude(id: curr.id).order(:date).first(3)
-    haml :photo, locals: {photo: curr, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
+    prev = Photo.where(Sequel.lit('date < ?', curr.date)).exclude(id: curr.id).order(:date, :id).last(3).reverse
+    nxt = Photo.where(Sequel.lit('date > ?', curr.date)).exclude(id: curr.id).order(:date, :id).first(3)
+    haml :photo, locals: {base: '', photo: curr, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
   end
 
   put '/photo/:id' do

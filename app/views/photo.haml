@@ -1,24 +1,24 @@
 .row.sp-bottom-sm
   -prev.each do |thumb|
     .col-md-1
-      %a{href: "#{url_for("/photo/#{thumb.id}")}"}
+      %a{href: "#{url_for("#{base}/photo/#{thumb.id}")}"}
         %img.img-center.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
   .col-sm-1
-    &lt;&nbsp;&gt;
+    &nbsp;
   -nxt.each do |thumb|
-    .col-sm-2
-      %a{href: "#{url_for("/photo/#{thumb.id}")}"}
+    .col-sm-1
+      %a{href: "#{url_for("#{base}/photo/#{thumb.id}")}"}
         %img.next.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
 .row
   .col-sm-1.my-auto.display-1
     -if prev.last
-      %a.text-decoration-none{href: "#{url_for("/photo/#{prev.last.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{prev.last.id}")}"}
         &#xab;
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}
   .col-sm-1.my-auto.display-1
     -if nxt.first
-      %a.text-decoration-none{href: "#{url_for("/photo/#{nxt.first.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{nxt.first.id}")}"}
         &#xbb;
   .col-sm-4
     %form.hidden_photo
@@ -50,7 +50,7 @@
   document.onkeydown = checkKey;
   function update_favorite(id, checked) {
     var form=$(".favorite_photo");
-    var url = '#{url_for("/photo/#{photo.id}/favorite")}';
+    var url = '#{url_for("#{base}/photo/#{photo.id}/favorite")}';
     if(checked) {
       return post(form, url);
     } else {
@@ -60,7 +60,7 @@
 
   function update_photo(id) {
     var form=$(".hidden_photo");
-    var url = '#{url_for("/photo/#{photo.id}")}';
+    var url = '#{url_for("#{base}/photo/#{photo.id}")}';
     return put(form, url);
   }
 
@@ -68,11 +68,11 @@
     e = e || window.event;
     if (e.keyCode == '37') {
       if(#{prev.last.nil? ? "false" : "true"}) {
-        window.location = "#{url_for("/photo/#{prev.last&.id}")}"
+        window.location = "#{url_for("#{base}/photo/#{prev.last&.id}")}"
       }
     } else if (e.keyCode == '39') {
       if(#{nxt.first.nil? ? "false" : "true"}) {
-        window.location = "#{url_for("/photo/#{nxt.first&.id}")}"
+        window.location = "#{url_for("#{base}/photo/#{nxt.first&.id}")}"
       }
     }
   }

@@ -4,7 +4,7 @@
   =title
 -summary.each do |s|
   %h2
-    %a{href:"#{s[:link]}"}
+    %a{href:"#{url_for(s[:link])}"}
       -if key == :month
         =Date::MONTHNAMES[s[key]]
       -else

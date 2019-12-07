@@ -15,7 +15,7 @@ class App < Sinatra::Application
   get "/photos/recent/:page" do
     protected
     page = params[:page].to_i
-    haml :photos, locals: {base: url_for("/photos/recent"), photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}
+    haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}
   end
 
   get "/photos/:page" do
@@ -23,7 +23,7 @@ class App < Sinatra::Application
     page = params[:page].to_i
     photos = Photo.search(params)
     haml :photos, locals: {
-      base: url_for("/photos"),
+      base: "/photos",
       photos: photos.order(Sequel.desc(:date)).paginate(page, 100),
       daterange: params[:daterange],
     }

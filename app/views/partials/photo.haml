@@ -1,2 +1,2 @@
-%a{href: "#{base}/photo/#{photo.id}"}?#{URI.encode_www_form(params)}"}
+%a{href: "#{base}/photo/#{photo.id}?#{URI.encode_www_form(params)}"}
   %img{class: "rotate-#{photo.orientation}#{" faded" if photo.hidden}", src: "#{url_for("/#{photo.thumbnail}")}"}

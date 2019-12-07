@@ -43,7 +43,7 @@ class App < Sinatra::Application
     end
 
     def protected(return_to=nil)
-      url = return_to ? "/?return_to=#{return_to}" : "/?return_to=#{request.url}"
+      url = return_to ? url_for("/?return_to=#{return_to}") : url_for("/?return_to=#{request.url}")
       redirect url unless current_user(cookies[:auth])
     end
 

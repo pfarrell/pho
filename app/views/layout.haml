@@ -21,7 +21,7 @@
           -if locals.has_key?(:breadcrumbs)
             -breadcrumbs.each do |bc|
               %li.breadcrumb-item{ class: ("active" if bc.has_key?(:active))}
-                %a{href: "#{bc[:url]}"}
+                %a{href: "#{url_for(bc[:url])}"}
                   =bc[:text]
 
     #wrap

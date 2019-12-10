@@ -85,3 +85,5 @@ require 'models/favorite'
 require 'models/search'
 require 'models/album'
 require 'models/summary'
+require 'models/video'
+

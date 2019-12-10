@@ -4,6 +4,7 @@ require 'exifr/jpeg'
 require 'rmagick'
 require 'digest'
 require 'json'
+require 'mediainfo'
 
 class PhoIn
   def self.import_photo(file_path, tags)
@@ -13,6 +14,13 @@ class PhoIn
     file = File.new(file_path)
     camera = create_camera(image.make, image.model)
     create_photo(magick, image, camera, file, tags)
+  end
+
+  def self.import_video(file_path, tags)
+    info = MediaInfo.from(file_path)
+    file = File.new(file_path)
+    camera = create_camera(info.general.extra.make, info.general.extra.model)
+    create_video(file, info, camera, tags)
   end
 
   def self.create_tags(json)
@@ -64,7 +72,49 @@ class PhoIn
     end
     photo
   end
+
+  def self.parse_gps(xyz)
+    xyz.split(/(?=[+-])/).each{|x| x.gsub!(/[\+\/]/, '')}
+  end
+
+  def self.create_video(file, info, camera, tags)
+    require 'byebug'
+    byebug
+    sha = Digest::SHA256.file(file)
+    video = Video.find(hash: sha.hexdigest)
+    if(video.nil?)
+      print "--> #{file.path}"
+      gps = parse_gps(info.general.extra.xyz)
+      video = Video.new(
+        hash: sha.hexdigest,
+        path: File.realpath(file),
+        size: file.size,
+        date: info.general.recorded_date || file.ctime,
+        format: info.general.format,
+        format_profile: info.general.format_profile,
+        duration: info.general.duration,
+        latitude: gps[0],
+        longitude: gps[1],
+        altitude: gps[2],
+        width: info.video.width,
+        height: info.video.height,
+        aspect_ratio: info.video.displayaspectratio.to_r.rationalize(0.05).to_s.gsub('/', ':')
+      )
+      video.camera = camera
+      video.save
+      tags = create_tags(tags)
+      tags.each do |tag|
+        video.add_tag tag
+      end
+      video.save
+    end
+    video
+  end
 end
 
-image, tags = ARGV
-PhoIn.import_photo(image, tags)
+file, tags = ARGV
+if file.end_with?(".JPG")
+  PhoIn.import_photo(file, tags)
+else
+  PhoIn.import_video(file, tags)
+end

@@ -18,6 +18,7 @@ gem 'capistrano-bower'
 gem 'capistrano-rvm', require: false
 
 gem 'exifr'
+gem 'mediainfo'
 
 gem 'haml'
 

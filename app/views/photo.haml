@@ -24,12 +24,12 @@
     %form.hidden_photo
       .checkbox
         %label
-          %input.form-control.input-sm{type:"checkbox", name:"hidden", checked: photo.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_photo(#{photo.id}) }"}
+          %input.form-control.input-sm{type:"checkbox", name:"hidden", checked: photo.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true; if(this.dirty) { update_photo(#{photo.id}) }"}
             Hidden?
     %form.favorite_photo
       .form-group.checkbox
         %label
-          %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true", onBlur: "if(this.dirty) { update_favorite(#{photo.id}, this.checked) }"}
+          %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true; if(this.dirty) { update_favorite(#{photo.id}, this.checked) }"}
             Favorited?
     .sp-bottom-sm
       %a.btn.btn-primary{href: "#{url_for("/pictures#{photo.path}")}", target: "_"}

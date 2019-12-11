@@ -44,7 +44,7 @@ class App < Sinatra::Application
     photos = Photo.join(Sequel.lit("(values#{ids.each_with_index.map{|x,i| "(#{x}, #{i})"}.join(', ')}) as x (id, ordering) on photos.id = x.id order by x.ordering")).all
     mid = photos.find_index{|x| x.id == curr.id}
     prev = photos[0...mid]
-    nxt = photos[mid+1...-1]
+    nxt = photos[mid+1..]
     haml :photo, locals: {base: "/summary/#{params[:year]}/#{params[:month]}", photo: curr, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
   end
 end

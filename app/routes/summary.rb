@@ -47,5 +47,27 @@ class App < Sinatra::Application
     nxt = photos[mid+1..]
     haml :photo, locals: {base: "/summary/#{params[:year]}/#{params[:month]}", photo: curr, nxt: nxt, prev: prev, user_id: @user.id, breadcrumbs:[{'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"}, {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}] }.merge(symbolize_keys(params))
   end
+
+  put '/summary/:year/:month/photo/:id' do
+    protected
+    photo = Photo[params[:id].to_i]
+    photo.hidden = params.keys.include?('hidden')
+    photo.save.to_json
+  end
+
+  post '/summary/:year/:month/photo/:id/favorite' do
+    protected
+    photo = Photo[params[:id].to_i]
+    favorite = Favorite.find_or_create(photo: photo, user_id: @user.id.to_s)
+    favorite.save.to_json
+  end
+
+  delete '/summary/:year/:month/photo/:id/favorite' do
+    protected
+    photo = Photo[params[:id].to_i]
+    favorite = Favorite.find(photo: photo, user_id: @user.id)
+    photo.remove_favorite(favorite)
+    photo.to_json
+  end
 end
 

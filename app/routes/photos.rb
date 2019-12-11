@@ -51,14 +51,14 @@ class App < Sinatra::Application
   post '/photo/:id/favorite' do
     protected
     photo = Photo[params[:id].to_i]
-    favorite = Favorite.find_or_create(photo: photo, user_id: current_user.id.to_s)
+    favorite = Favorite.find_or_create(photo: photo, user_id: @user.id.to_s)
     favorite.save.to_json
   end
 
   delete '/photo/:id/favorite' do
     protected
     photo = Photo[params[:id].to_i]
-    favorite = Favorite.find(photo: photo, user_id: current_user.id)
+    favorite = Favorite.find(photo: photo, user_id: @user.id)
     photo.remove_favorite(favorite)
     photo.to_json
   end

@@ -31,7 +31,7 @@ class App < Sinatra::Application
     protected
     photos = Photo.by_month(params[:year], params[:month])
     respond_to do |f|
-      f.html { haml :photos, locals: { base: "/summary/#{params[:year]}/#{params[:month]}", photos: photos, breadcrumbs: [{'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"}, {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}]} }
+      f.html { haml :photos, locals: {prev: [], nxt: [], base: "/summary/#{params[:year]}/#{params[:month]}", photos: photos, breadcrumbs: [{'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"}, {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}]} }
       f.json { {year: params[:year], month: params[:month], photos: photos} }
     end
   end

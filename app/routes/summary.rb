@@ -45,7 +45,7 @@ class App < Sinatra::Application
     mid = photos.find_index{|x| x.id == curr.id}
     prev = photos[0...mid]
     nxt = photos[mid+1..]
-    haml :photo, locals: {base: "/summary/#{params[:year]}/#{params[:month]}", photo: curr, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
+    haml :photo, locals: {base: "/summary/#{params[:year]}/#{params[:month]}", photo: curr, nxt: nxt, prev: prev, user_id: @user.id, breadcrumbs:[{'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"}, {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}] }.merge(symbolize_keys(params))
   end
 end
 

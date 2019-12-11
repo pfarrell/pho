@@ -1,2 +1,15 @@
 = haml :"partials/photo_spread", locals: {photos: photos, base: base}
 :javascript
+  document.onkeydown = checkKey;
+  function checkKey(e) {
+    e = e || window.event;
+    if (e.keyCode == '37') {
+      if(#{prev.last.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("#{base}/#{prev.last}")}"
+      }
+    } else if (e.keyCode == '39') {
+      if(#{!nxt.first.nil? && photos.all.size == photos.page_size ? "true" : "false"}) {
+        window.location = "#{url_for("#{base}/#{nxt.first}")}"
+      }
+    }
+  }

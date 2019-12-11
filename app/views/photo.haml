@@ -64,6 +64,7 @@
     return put(form, url);
   }
 
+  document.onkeydown = checkKey;
   function checkKey(e) {
     e = e || window.event;
     if (e.keyCode == '37') {

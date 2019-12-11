@@ -15,7 +15,10 @@ class App < Sinatra::Application
   get "/photos/recent/:page" do
     protected
     page = params[:page].to_i
-    haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}
+    nxt = "#{page + 1}"
+    prev = page > 1 ? "#{page - 1}" : nil
+    navigation = {nxt: [nxt], prev: [prev]}
+    haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}.merge(navigation)
   end
 
   get "/photos/:page" do

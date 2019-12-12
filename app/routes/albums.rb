@@ -11,7 +11,7 @@ class App < Sinatra::Application
     page = params[:page].to_i
     album = Album[params[:id]]
     photos = Photo.where(albums: [album]).paginate(page, 100)
-    haml :photos, locals: { base: "/album/#{params[:id]}", photos: photos}
+    haml :files, locals: { base: "/album/#{params[:id]}", photos: photos}
   end
 
   get '/albums/:page' do

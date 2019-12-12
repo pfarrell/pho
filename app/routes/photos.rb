@@ -18,14 +18,14 @@ class App < Sinatra::Application
     nxt = "#{page + 1}"
     prev = page > 1 ? "#{page - 1}" : nil
     navigation = {nxt: [nxt], prev: [prev]}
-    haml :photos, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}.merge(navigation)
+    haml :files, locals: {base: "/photos/recent", photos: Photo.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}.merge(navigation)
   end
 
   get "/photos/:page" do
     protected
     page = params[:page].to_i
     photos = Photo.search(params)
-    haml :photos, locals: {
+    haml :files, locals: {
       base: "",
       photos: photos.order(Sequel.desc(:date)).paginate(page, 100),
       daterange: params[:daterange],
@@ -40,7 +40,7 @@ class App < Sinatra::Application
     photos = Photo.join(Sequel.lit("(values#{ids.each_with_index.map{|x,i| "(#{x}, #{i})"}.join(', ')}) as x (id, ordering) on photos.id = x.id order by x.ordering")).all
     mid = photos.find_index{|x| x.id == curr.id}
     prev = photos[0...mid]
-    nxt = photos[mid+1...-1]
+    nxt = photos[mid+1..]
     haml :photo, locals: {base: '', photo: curr, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
   end
 

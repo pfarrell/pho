@@ -14,4 +14,12 @@ class Summary
       .all
   end
 
+  def self.month_counts()
+    Photo.group_and_count(Sequel.as(Sequel.function(:to_char, :date, 'YYYY-MM'), :date))
+  end
+
+  def self.surrounding_months(year, month)
+    counts = month_counts().all
+  end
+
 end

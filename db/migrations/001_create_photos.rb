@@ -2,11 +2,7 @@ Sequel.migration do
   change do
     create_table(:photos) do
       primary_key :id
-      String      :path
       Integer     :camera_id
-      String      :hash
-      Integer      :size
-      DateTime    :date
       Float       :exposure_time
       Float       :f_stop
       Float       :iso_speed

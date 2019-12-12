@@ -1,6 +1,6 @@
 class Photo < Sequel::Model
   many_to_one  :camera
-  one_to_one   :file
+  one_to_one   :pfile
   many_to_many :tags
   one_to_many  :favorites
   many_to_many :albums
@@ -27,9 +27,4 @@ class Photo < Sequel::Model
     where{date >= start}.where{date <= stop} unless start == nil
   end
 
-  def self.by_month(year, month)
-    Photo.where(Sequel.function(:date_part, 'year', :date) => year)
-      .where(Sequel.function(:date_part, 'month', :date) => month)
-      .order(:date)
-  end
 end

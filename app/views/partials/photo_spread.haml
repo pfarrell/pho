@@ -1,5 +1,5 @@
--if photos.respond_to? :page_count
-  =haml :"partials/paging", locals: {model: photos, base: base}
+-if pfiles.respond_to? :page_count
+  =haml :"partials/paging", locals: {model: pfiles, base: base}
 #photos
-  -photos.each_with_index do |photo, i|
-    =haml :"partials/photo", locals: {base: base, photo: photo, idx: i}.merge(symbolize_keys(params))
+  -pfiles.each_with_index do |pfile, i|
+    =haml :"partials/photo", locals: {base: base, photo: pfile.photo, idx: i}.merge(symbolize_keys(params))

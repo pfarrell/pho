@@ -1,4 +1,4 @@
-= haml :"partials/photo_spread", locals: {photos: photos, base: base}
+= haml :"partials/photo_spread", locals: {pfiles: pfiles, base: base}
 :javascript
   document.onkeydown = checkKey;
   function checkKey(e) {
@@ -8,7 +8,7 @@
         window.location = "#{url_for("#{base}/#{prev.last}")}"
       }
     } else if (e.keyCode == '39') {
-      if(#{!nxt.first.nil? && photos.all.size == photos.page_size ? "true" : "false"}) {
+      if(#{!nxt.first.nil? && pfiles.all.size == pfiles.page_size ? "true" : "false"}) {
         window.location = "#{url_for("#{base}/#{nxt.first}")}"
       }
     }

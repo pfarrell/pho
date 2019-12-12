@@ -18,7 +18,6 @@ class PhoIn
 
   def self.import_video(file_path, tags)
     info = MediaInfo.from(file_path)
-    file = File.new(file_path)
     camera = create_camera(info.general.extra.make, info.general.extra.model)
     create_video(file, info, camera, tags)
   end
@@ -37,14 +36,16 @@ class PhoIn
 
   def self.create_photo(magick, image, camera, file, tags)
     sha= Digest::SHA256.file(file)
-    photo = Photo.find(hash: sha.hexdigest)
-    if(photo.nil?)
+    pfile = Pfile.find(hash: sha.hexdigest)
+    if(pfile.nil?)
       print "--> #{file.path}"
-      photo = Photo.new(
+      pfile = Pfile.find_or_create(
         hash: sha.hexdigest,
         path: File.realpath(file),
         size: file.size,
         date: image.date_time_original || image.date_time_digitized || image.date_time || file.ctime,
+      )
+      photo = Photo.new(
         exposure_time: image.exif&.exposure_time,
         f_stop: image.exif&.f_number,
         iso_speed: image.iso_speed_ratings,
@@ -63,8 +64,11 @@ class PhoIn
         longitude: image.exif&.gps&.longitude,
         orientation: magick.orientation&.to_i || image.exif&.orientation&.to_i
       )
-      photo.camera = camera
       photo.save
+      photo.camera = camera
+      photo.pfile = pfile
+      pfile.photo = photo
+      pfile.save
       tags.each do |tag|
         photo.add_tag tag
       end
@@ -78,8 +82,6 @@ class PhoIn
   end
 
   def self.create_video(file, info, camera, tags)
-    require 'byebug'
-    byebug
     sha = Digest::SHA256.file(file)
     video = Video.find(hash: sha.hexdigest)
     if(video.nil?)
@@ -113,7 +115,7 @@ class PhoIn
 end
 
 file, tags = ARGV
-if file.end_with?(".JPG")
+if file.end_with?(".jpg")
   PhoIn.import_photo(file, tags)
 else
   PhoIn.import_video(file, tags)

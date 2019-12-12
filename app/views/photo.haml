@@ -1,24 +1,24 @@
 .row.sp-bottom-sm
-  -prev.each do |thumb|
+  -prev.each do |pfile|
     .col-md-1
-      %a{href: "#{url_for("#{base}/photo/#{thumb.id}")}"}
-        %img.img-center.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
+      %a{href: "#{url_for("#{base}/photo/#{pfile.photo.id}")}"}
+        %img.img-center.img-responsive.thumb{class: "rotate-#{pfile.photo.orientation}", src: "#{url_for("/#{pfile.thumbnail}")}"}
   .col-sm-1
     &nbsp;
-  -nxt.each do |thumb|
+  -nxt.each do |pfile|
     .col-sm-1
-      %a{href: "#{url_for("#{base}/photo/#{thumb.id}")}"}
-        %img.next.img-responsive.thumb{class: "rotate-#{thumb.orientation}", src: "#{url_for("/#{thumb.thumbnail}")}"}
+      %a{href: "#{url_for("#{base}/photo/#{pfile.photo.id}")}"}
+        %img.next.img-responsive.thumb{class: "rotate-#{pfile.photo.orientation}", src: "#{url_for("/#{pfile.thumbnail}")}"}
 .row
   .col-sm-1.my-auto.display-1
     -if prev.last
-      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{prev.last.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{prev.last.photo.id}")}"}
         &#xab;
   .col-sm-6
-    %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.path}")}"}
+    %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.pfile.path}")}"}
   .col-sm-1.my-auto.display-1
     -if nxt.first
-      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{nxt.first.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{nxt.first.photo.id}")}"}
         &#xbb;
   .col-sm-4
     %form.hidden_photo
@@ -32,7 +32,7 @@
           %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true; if(this.dirty) { update_favorite(#{photo.id}, this.checked) }"}
             Favorited?
     .sp-bottom-sm
-      %a.btn.btn-primary{href: "#{url_for("/pictures#{photo.path}")}", target: "_"}
+      %a.btn.btn-primary{href: "#{url_for("/pictures#{photo.pfile.path}")}", target: "_"}
         Raw Image
     .sp-bottom-sm
       %button.btn.btn-info{ data: { toggle: "collapse", target: "#photo_info" } }

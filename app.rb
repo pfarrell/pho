@@ -77,7 +77,7 @@ require 'models'
 require 'routes'
 
 require 'models/camera'
-#require 'models/file'
+require 'models/file'
 require 'models/photo'
 require 'models/tag'
 require 'models/user'

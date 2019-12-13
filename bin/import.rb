@@ -37,14 +37,17 @@ class PhoIn
 
   def self.create_photo(magick, image, camera, file, tags)
     sha= Digest::SHA256.file(file)
-    photo = Photo.find(hash: sha.hexdigest)
-    if(photo.nil?)
+    asset = Asset.find(hash: sha.hexdigest)
+    if(asset.nil?)
       print "--> #{file.path}"
-      photo = Photo.new(
+      asset = Asset.find_or_create(
+        type: 'photo',
         hash: sha.hexdigest,
         path: File.realpath(file),
         size: file.size,
         date: image.date_time_original || image.date_time_digitized || image.date_time || file.ctime,
+      )
+      photo = Photo.new(
         exposure_time: image.exif&.exposure_time,
         f_stop: image.exif&.f_number,
         iso_speed: image.iso_speed_ratings,
@@ -63,8 +66,11 @@ class PhoIn
         longitude: image.exif&.gps&.longitude,
         orientation: magick.orientation&.to_i || image.exif&.orientation&.to_i
       )
-      photo.camera = camera
       photo.save
+      photo.camera = camera
+      photo.asset = asset
+      asset.photo = photo
+      asset.save
       tags.each do |tag|
         photo.add_tag tag
       end
@@ -78,18 +84,21 @@ class PhoIn
   end
 
   def self.create_video(file, info, camera, tags)
-    require 'byebug'
-    byebug
     sha = Digest::SHA256.file(file)
-    video = Video.find(hash: sha.hexdigest)
-    if(video.nil?)
+    asset = Asset.find(hash: sha.hexdigest)
+    if(asset.nil?)
       print "--> #{file.path}"
-      gps = parse_gps(info.general.extra.xyz)
-      video = Video.new(
+      #require 'byebug'
+      #byebug
+      asset = Asset.find_or_create(
+        type: 'video',
         hash: sha.hexdigest,
         path: File.realpath(file),
         size: file.size,
-        date: info.general.recorded_date || file.ctime,
+        date: info.general.recorded_date || info.general.encoded_date || file.ctime,
+      )
+      gps = parse_gps(info.general.extra.xyz)
+      video = Video.new(
         format: info.general.format,
         format_profile: info.general.format_profile,
         duration: info.general.duration,
@@ -100,8 +109,11 @@ class PhoIn
         height: info.video.height,
         aspect_ratio: info.video.displayaspectratio.to_r.rationalize(0.05).to_s.gsub('/', ':')
       )
-      video.camera = camera
       video.save
+      video.camera = camera
+      video.asset = asset
+      asset.video = video
+      asset.save
       tags = create_tags(tags)
       tags.each do |tag|
         video.add_tag tag
@@ -113,7 +125,7 @@ class PhoIn
 end
 
 file, tags = ARGV
-if file.end_with?(".JPG")
+if file.end_with?(".jpg")
   PhoIn.import_photo(file, tags)
 else
   PhoIn.import_video(file, tags)

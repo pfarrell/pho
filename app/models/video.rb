@@ -1,6 +1,6 @@
 class Video < Sequel::Model
   many_to_one  :camera
-#  one_to_one   :file
+  one_to_one   :asset
   many_to_many :tags
   one_to_many  :favorites
   many_to_many :albums

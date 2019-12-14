@@ -6,7 +6,7 @@ class Photo < Sequel::Model
   many_to_many :albums
 
   def file_name
-    Pathname.new(self.path).basename
+    Pathname.new(self.asset.path).basename
   end
 
   def favorited?(user_id)

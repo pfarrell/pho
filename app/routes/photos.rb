@@ -34,8 +34,8 @@ class App < Sinatra::Application
 
   get "/photo/:id" do
     protected
-    curr = Asset[params[:id].to_i]
-    ids = DB.fetch("select q.* from (select lag(id, 3) over w lag_3, lag(id, 2) over w lag_2, lag(id, 1) over w lag_1, id, lead(id, 1) over w lead_1, lead(id, 2) over w lead_2, lead(id, 3) over w lead_3 from assets where type = 'photo' window w as (order by date, id desc)) q where id = #{curr.id}").first.values()
+    curr = Photo[params[:id].to_i]
+    ids = DB.fetch("select q.* from (select lag(id, 3) over w lag_3, lag(id, 2) over w lag_2, lag(id, 1) over w lag_1, id, lead(id, 1) over w lead_1, lead(id, 2) over w lead_2, lead(id, 3) over w lead_3 from assets where type = 'photo' window w as (order by date, id desc)) q where id = #{curr.asset.id}").first.values()
     ids = ids.reject{|x| x.nil?}
     assets = Asset.join(Sequel.lit("(values#{ids.each_with_index.map{|x,i| "(#{x}, #{i})"}.join(', ')}) as x (id, ordering) on assets.id = x.id order by x.ordering")).all
     mid = assets.find_index{|x| x.id == curr.id}

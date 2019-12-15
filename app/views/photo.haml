@@ -12,13 +12,13 @@
 .row
   .col-sm-1.my-auto.display-1
     -if prev.last
-      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{prev.last.photo.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{prev.last.id}")}"}
         &#xab;
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
   .col-sm-1.my-auto.display-1
     -if nxt.first
-      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{nxt.first.photo.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{nxt.first.id}")}"}
         &#xbb;
   .col-sm-4
     %form.hidden_photo

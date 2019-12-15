@@ -21,7 +21,7 @@ assets.each_with_index do |id, i|
   next if File.exist?(asset.thumbnail) unless asset.thumbnail.nil?
 
   Thumb.thumbnail(asset.photo)
-  if id % 25 == 0
+  if id % 10 == 0
     print '.'
     GC.start
   end

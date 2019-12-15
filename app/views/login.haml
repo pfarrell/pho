@@ -1,4 +1,5 @@
-%form{method: "POST", action: "#{url_for("/login")}"}
+-url = request.params['return_to'] ? "/login?return_to=#{params['return_to']}" : "/login"
+%form{method: "POST", action: "#{url_for(url)}"}
   .input-group.mb-3
     .input-group-prepend
       .input-group-text#basic-addon1

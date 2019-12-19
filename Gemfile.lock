@@ -91,6 +91,8 @@ GEM
     sshkit (1.20.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    streamio-ffmpeg (3.0.2)
+      multi_json (~> 1.8)
     temple (0.8.2)
     test-unit (3.3.4)
       power_assert
@@ -124,6 +126,7 @@ DEPENDENCIES
   sinatra
   sinatra-contrib
   sinatra-respond_to
+  streamio-ffmpeg
   test-unit
 
 RUBY VERSION

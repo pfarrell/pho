@@ -17,8 +17,9 @@ class PhoIn
   end
 
   def self.import_video(file_path, tags)
+    file = File.new(file_path)
     info = MediaInfo.from(file_path)
-    camera = create_camera(info.general.extra.make, info.general.extra.model)
+    camera = info.general.extra.respond_to?(:make) ? create_camera(info.general.extra.make, info.general.extra.model) : nil
     create_video(file, info, camera, tags)
   end
 
@@ -96,20 +97,25 @@ class PhoIn
         size: file.size,
         date: info.general.recorded_date || info.general.encoded_date || file.ctime,
       )
-      gps = parse_gps(info.general.extra.xyz)
       video = Video.new(
         format: info.general.format,
         format_profile: info.general.format_profile,
         duration: info.general.duration,
-        latitude: gps[0],
-        longitude: gps[1],
-        altitude: gps[2],
         width: info.video.width,
         height: info.video.height,
         aspect_ratio: info.video.displayaspectratio.to_r.rationalize(0.05).to_s.gsub('/', ':')
       )
+      if info.general.extra.respond_to?(:xyz)
+        gps = parse_gps(info.general.extra.xyz)
+        video.latitude = gps[0]
+        video.longitude = gps[1]
+        video.altitude  = gps[2]
+      end
+
       video.save
-      video.camera = camera
+      if camera
+        video.camera = camera
+      end
       video.asset = asset
       asset.video = video
       asset.save
@@ -124,7 +130,7 @@ class PhoIn
 end
 
 file, tags = ARGV
-if file.end_with?(".jpg")
+if file.downcase.end_with?(".jpg")
   PhoIn.import_photo(file, tags)
 else
   PhoIn.import_video(file, tags)

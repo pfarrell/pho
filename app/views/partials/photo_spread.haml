@@ -2,4 +2,7 @@
   =haml :"partials/paging", locals: {model: assets, base: base}
 #photos
   -assets.each_with_index do |asset, i|
-    =haml :"partials/photo", locals: {base: base, photo: asset.photo, idx: i}.merge(symbolize_keys(params))
+    -if asset.photo_id
+      =haml :"partials/photo", locals: {base: base, photo: asset.photo, idx: i}.merge(symbolize_keys(params))
+    -elsif asset.video_id
+      =haml :"partials/video", locals: {base: base, video: asset.video, idx: i}.merge(symbolize_keys(params))

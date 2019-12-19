@@ -11,6 +11,7 @@ gem 'sequel'
 gem 'pg'
 
 gem 'rmagick'
+gem 'streamio-ffmpeg'
 
 gem 'capistrano'
 gem 'capistrano-bundler'

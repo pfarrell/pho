@@ -1,24 +1,31 @@
 .row.sp-bottom-sm
   -prev.each do |asset|
     .col-md-1
-      %a{href: "#{url_for("#{base}/photo/#{asset.id}")}"}
-        %img.img-center.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        -if asset.photo
+          %img.next.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+        -else
+          %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
   .col-sm-1
     &nbsp;
   -nxt.each do |asset|
     .col-sm-1
-      %a{href: "#{url_for("#{base}/photo/#{asset.id}")}"}
-        %img.next.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+      -require 'byebug'
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        -if asset.photo
+          %img.next.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+        -else
+          %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
 .row
   .col-sm-1.my-auto.display-1
     -if prev.last
-      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{prev.last.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
         &#xab;
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
   .col-sm-1.my-auto.display-1
     -if nxt.first
-      %a.text-decoration-none{href: "#{url_for("#{base}/photo/#{nxt.first.id}")}"}
+      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}
         &#xbb;
   .col-sm-4
     %form.hidden_photo
@@ -50,7 +57,7 @@
   document.onkeydown = checkKey;
   function update_favorite(id, checked) {
     var form=$(".favorite_photo");
-    var url = '#{url_for("#{base}/photo/#{photo.id}/favorite")}';
+    var url = '#{url_for("#{base}/asset/#{photo.id}/favorite")}';
     if(checked) {
       return post(form, url);
     } else {
@@ -60,7 +67,7 @@
 
   function update_photo(id) {
     var form=$(".hidden_photo");
-    var url = '#{url_for("#{base}/photo/#{photo.id}")}';
+    var url = '#{url_for("#{base}/asset/#{photo.id}")}';
     return put(form, url);
   }
 
@@ -69,11 +76,11 @@
     e = e || window.event;
     if (e.keyCode == '37') {
       if(#{prev.last.nil? ? "false" : "true"}) {
-        window.location = "#{url_for("#{base}/photo/#{prev.last&.id}")}"
+        window.location = "#{url_for("#{base}/asset/#{prev.last&.id}")}"
       }
     } else if (e.keyCode == '39') {
       if(#{nxt.first.nil? ? "false" : "true"}) {
-        window.location = "#{url_for("#{base}/photo/#{nxt.first&.id}")}"
+        window.location = "#{url_for("#{base}/asset/#{nxt.first&.id}")}"
       }
     }
   }

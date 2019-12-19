@@ -16,6 +16,7 @@ Sequel.migration do
       Float       :width
       Float       :height
       String      :aspect_ratio
+      TrueClass   :hidden, default: false
       DateTime    :created_at
       DateTime    :updated_at
     end

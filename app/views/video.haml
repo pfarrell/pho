@@ -1,0 +1,70 @@
+.row.sp-bottom-sm
+  -prev.each do |asset|
+    .col-md-1
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        .video-thumbnail
+          %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+  .col-sm-1
+    &nbsp;
+  -nxt.each do |asset|
+    .col-md-1
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        .video-thumbnail
+          %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+.row
+  .col-sm-1.my-auto.display-1
+    -if prev.last
+      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
+        &#xab;
+  .col-sm-10
+    %video{width: "#{video.width}", height: "#{video.height}", controls: true}
+      -type = "video/mp4"
+      %source{src: "/pictures#{video.asset.path}", type: "#{type}"}
+  .col-sm-1.my-auto.display-1
+    -if nxt.first
+      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}
+        &#xbb;
+.row
+  .col-sm-4
+    %form.hidden_photo
+      .checkbox
+        %label
+          %input.form-control.input-sm{type:"checkbox", name:"hidden", checked: video.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true; if(this.dirty) { update_photo(#{video.id}) }"}
+            Hidden?
+    .sp-bottom-sm
+      %a.btn.btn-primary{href: "#{url_for("/pictures#{video.asset.path}")}", target: "_"}
+        Raw Image
+    .sp-bottom-sm
+      %button.btn.btn-info{ data: { toggle: "collapse", target: "#photo_info" } }
+        Video Information
+    #photo_info.collapse
+      %table.table.table-condensed
+        %tbody
+          -video.columns.each do |column|
+            %tr
+              %td
+                =column
+              %td
+                =video[column]
+:javascript
+  document.onkeydown = checkKey;
+
+  function update_photo(id) {
+    var form=$(".hidden_photo");
+    var url = '#{url_for("#{base}/asset/#{video.id}")}';
+    return put(form, url);
+  }
+
+  document.onkeydown = checkKey;
+  function checkKey(e) {
+    e = e || window.event;
+    if (e.keyCode == '37') {
+      if(#{prev.last.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("#{base}/asset/#{prev.last&.id}")}"
+      }
+    } else if (e.keyCode == '39') {
+      if(#{nxt.first.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("#{base}/asset/#{nxt.first&.id}")}"
+      }
+    }
+  }

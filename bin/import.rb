@@ -35,6 +35,11 @@ class PhoIn
     Camera.find_or_create(make: make, model: model)
   end
 
+  def self.numberify(str)
+    return 0 if str.nil?
+    return str.gsub('pixels', '').gsum(' ', '').to_i
+  end
+
   def self.create_photo(magick, image, camera, file, tags)
     sha= Digest::SHA256.file(file)
     asset = Asset.find(hash: sha.hexdigest)
@@ -101,8 +106,8 @@ class PhoIn
         format: info.general.format,
         format_profile: info.general.format_profile,
         duration: info.general.duration,
-        width: info.video.width,
-        height: info.video.height,
+        width: numberify(info.video.width),
+        height: numberify(info.video.height),
         aspect_ratio: info.video.displayaspectratio.to_r.rationalize(0.05).to_s.gsub('/', ':')
       )
       if info.general.extra.respond_to?(:xyz)

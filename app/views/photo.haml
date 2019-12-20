@@ -10,7 +10,6 @@
     &nbsp;
   -nxt.each do |asset|
     .col-sm-1
-      -require 'byebug'
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
         -if asset.photo
           %img.next.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}

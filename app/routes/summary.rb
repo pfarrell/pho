@@ -46,11 +46,15 @@ class App < Sinatra::Application
     prev = assets[0...mid]
     nxt = assets[mid+1..]
     base = "/summary/#{params[:year]}/#{params[:month]}"
+    breadcrumbs = [
+      {'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"},
+      {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}
+    ]
 
     if curr.type == 'photo'
-      haml :photo, locals: {base: base, photo: curr.photo, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
+      haml :photo, locals: {base: base, photo: curr.photo, nxt: nxt, prev: prev, breadcrumbs: breadcrumbs, user_id: @user.id}.merge(symbolize_keys(params))
     elsif curr.type == 'video'
-      haml :video, locals: {base: base, video: curr.video, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
+      haml :video, locals: {base: base, video: curr.video, nxt: nxt, prev: prev, breadcrumbs: breadcrumbs,  user_id: @user.id}.merge(symbolize_keys(params))
     end
   end
 

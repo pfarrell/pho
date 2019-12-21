@@ -233,3 +233,7 @@ canvas {
 .img-center {
   margin: 0 auto;
 }
+
+.video-thumbnail {
+  outline-style: outset;
+}

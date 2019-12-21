@@ -88,8 +88,13 @@ class PhoIn
     photo
   end
 
-  def self.parse_gps(xyz)
-    xyz.split(/(?=[+-])/).each{|x| x.gsub!(/[\+\/]/, '')}
+  def self.parse_gps(info)
+    gps = nil
+    gps = info&.general&.extra&.xyz if info.general.extra.respond_to?(:xyz)
+    gps ||=info&.general&.extra&.com_apple_quicktime_location_iso6709
+    if gps
+      gps.split(/(?=[+-])/).each{|x| x.gsub!(/[\+\/]/, '')}
+    end
   end
 
   def self.create_video(file, info, camera, tags)
@@ -114,8 +119,8 @@ class PhoIn
         height: numberify(info.video&.height),
         aspect_ratio: info.video&.displayaspectratio&.to_r&.rationalize(0.05)&.to_s&.gsub('/', ':')
       )
-      if info.general.extra&.respond_to?(:xyz)
-        gps = parse_gps(info.general.extra.xyz)
+      gps = parse_gps(info)
+      if gps
         video.latitude = gps[0]
         video.longitude = gps[1]
         video.altitude  = gps[2]

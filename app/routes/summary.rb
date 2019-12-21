@@ -36,7 +36,7 @@ class App < Sinatra::Application
     end
   end
 
-  get "/summary/:year/:month/photo/:id" do
+  get "/summary/:year/:month/asset/:id" do
     protected
     curr = Asset[params[:id].to_i]
     ids = DB.fetch("select q.* from (select lag(id, 3) over w lag_3, lag(id, 2) over w lag_2, lag(id, 1) over w lag_1, id, lead(id, 1) over w lead_1, lead(id, 2) over w lead_2, lead(id, 3) over w lead_3 from assets window w as (order by date, id desc)) q where id = #{curr.id}").first.values()
@@ -45,7 +45,13 @@ class App < Sinatra::Application
     mid = assets.find_index{|x| x.id == curr.id}
     prev = assets[0...mid]
     nxt = assets[mid+1..]
-    haml :photo, locals: {base: "/summary/#{params[:year]}/#{params[:month]}", photo: curr.photo, nxt: nxt, prev: prev, user_id: @user.id, breadcrumbs:[{'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"}, {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}] }.merge(symbolize_keys(params))
+    base = "/summary/#{params[:year]}/#{params[:month]}"
+
+    if curr.type == 'photo'
+      haml :photo, locals: {base: base, photo: curr.photo, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
+    elsif curr.type == 'video'
+      haml :video, locals: {base: base, video: curr.video, nxt: nxt, prev: prev, user_id: @user.id}.merge(symbolize_keys(params))
+    end
   end
 
   put '/summary/:year/:month/photo/:id' do

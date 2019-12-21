@@ -11,19 +11,15 @@
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
         .video-thumbnail
           %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
-.row
-  .col-sm-1.my-auto.display-1
-    -if prev.last
-      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
-        &#xab;
-  .col-sm-10
-    %video{width: "#{video.width}", height: "#{video.height}", controls: true}
-      -type = "video/mp4"
-      %source{src: "/pictures#{video.asset.path}", type: "#{type}"}
-  .col-sm-1.my-auto.display-1
-    -if nxt.first
-      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}
-        &#xbb;
+-if prev.last
+  %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
+    &#xab;
+%video{width: "#{video.width}", height: "#{video.height}", controls: true}
+  -type = "video/mp4"
+  %source{src: "/pictures#{video.asset.path}", type: "#{type}"}
+-if nxt.first
+  %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}
+    &#xbb;
 .row
   .col-sm-4
     %form.hidden_photo

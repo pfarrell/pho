@@ -37,8 +37,9 @@ class PhoIn
 
   def self.numberify(str)
     return 0 if str.nil?
+    return str unless str.kind_of?(String)
     if str.to_s.match(/pixels/)
-      return str.to_s.gsub('pixels', '').gsum(' ', '').to_i
+      return str.to_s.gsub('pixels', '').gsub(' ', '').to_i
     end
     str.to_s
   end
@@ -103,17 +104,17 @@ class PhoIn
         hash: sha,
         path: File.realpath(file),
         size: file.size,
-        date: info.general.recorded_date || info.general.encoded_date || file.ctime,
+        date: info&.general&.recorded_date || info&.general&.encoded_date || file.ctime,
       )
       video = Video.new(
-        format: info.general.format,
-        format_profile: info.general.format_profile,
-        duration: info.general.duration,
-        width: numberify(info.video.width),
-        height: numberify(info.video.height),
-        aspect_ratio: info.video.displayaspectratio.to_r.rationalize(0.05).to_s.gsub('/', ':')
+        format: info.general&.format,
+        format_profile: info.general&.format_profile,
+        duration: info.general&.duration,
+        width: numberify(info.video&.width),
+        height: numberify(info.video&.height),
+        aspect_ratio: info.video&.displayaspectratio&.to_r&.rationalize(0.05)&.to_s&.gsub('/', ':')
       )
-      if info.general.extra.respond_to?(:xyz)
+      if info.general.extra&.respond_to?(:xyz)
         gps = parse_gps(info.general.extra.xyz)
         video.latitude = gps[0]
         video.longitude = gps[1]

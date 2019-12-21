@@ -37,7 +37,10 @@ class PhoIn
 
   def self.numberify(str)
     return 0 if str.nil?
-    return str.gsub('pixels', '').gsum(' ', '').to_i
+    if str.to_s.match(/pixels/)
+      return str.to_s.gsub('pixels', '').gsum(' ', '').to_i
+    end
+    str.to_s
   end
 
   def self.create_photo(magick, image, camera, file, tags)
@@ -89,15 +92,15 @@ class PhoIn
   end
 
   def self.create_video(file, info, camera, tags)
-    sha = Digest::SHA256.file(file)
-    asset = Asset.find(hash: sha.hexdigest)
+    sha = Digest::SHA256.hexdigest(YAML.dump(info))
+    asset = Asset.find(hash: sha)
     if(asset.nil?)
       print "--> #{file.path}"
       #require 'byebug'
       #byebug
       asset = Asset.find_or_create(
         type: 'video',
-        hash: sha.hexdigest,
+        hash: sha,
         path: File.realpath(file),
         size: file.size,
         date: info.general.recorded_date || info.general.encoded_date || file.ctime,

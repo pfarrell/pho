@@ -16,7 +16,7 @@
     &#xab;
 %video{width: "#{video.width}", height: "#{video.height}", controls: true}
   -type = "video/mp4"
-  %source{src: "/pictures#{video.asset.path}", type: "#{type}"}
+  %source{src: "#{url_for("/pictures#{video.asset.path}")}", type: "#{type}"}
 -if nxt.first
   %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}
     &#xbb;

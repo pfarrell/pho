@@ -14,7 +14,7 @@
 -if prev.last
   %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
     &#xab;
-%video{width: "#{video.width}", height: "#{video.height}", controls: true}
+%video{width: "100%", controls: true, poster: "#{url_for("/#{video.asset.thumbnail}")}"}
   -type = "video/mp4"
   %source{src: "#{url_for("/pictures#{video.asset.path}")}", type: "#{type}"}
 -if nxt.first

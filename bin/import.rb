@@ -102,8 +102,6 @@ class PhoIn
     asset = Asset.find(hash: sha)
     if(asset.nil?)
       print "--> #{file.path}"
-      #require 'byebug'
-      #byebug
       asset = Asset.find_or_create(
         type: 'video',
         hash: sha,

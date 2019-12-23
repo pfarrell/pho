@@ -18,7 +18,8 @@ class App < Sinatra::Application
     nxt = "#{page + 1}"
     prev = page > 1 ? "#{page - 1}" : nil
     navigation = {nxt: [nxt], prev: [prev]}
-    haml :files, locals: {base: "/assets/recent", assets: Asset.order(Sequel.desc(:date)).paginate(page, 100), daterange: ""}.merge(navigation)
+    assets = Asset.order(Sequel.desc(:date)).paginate(page, 100)
+    haml :files, locals: {base: "/assets/recent", assets: assets, daterange: ""}.merge(navigation)
   end
 
   get "/assets/:page" do

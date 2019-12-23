@@ -1,2 +1,2 @@
-%a{href: "#{url_for("#{base}/asset/#{photo.asset_id}")}"}
-  %img{class: "rotate-#{photo.orientation}#{" faded" if photo.hidden}", src: "#{url_for("/#{photo.asset.thumbnail}")}"}
+%a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+  %img{class: "rotate-#{asset[:orientation]}#{" faded" if asset[:hidden]}", src: "#{url_for("/#{asset[:thumbnail]}")}"}

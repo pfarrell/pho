@@ -23,9 +23,8 @@ class Thumb
 
   def self.video_thumbnail(path, file_name, video)
     movie = FFMPEG::Movie.new(video.asset.path)
-    duration = (movie.duration / 2).floor
     temp_path = "/tmp/#{file_name}-thumb.jpg"
-    movie.screenshot(temp_path, seek_time: duration)
+    movie.screenshot(temp_path, seek_time: 1)
     Thumb.mk_thumb(temp_path, "public/thumbnails#{path.dirname.to_s}/#{file_name}-thumb.jpg")
     video.asset.thumbnail = "thumbnails#{path.dirname.to_s}/#{file_name}-thumb.jpg"
     video.asset.save
@@ -40,10 +39,14 @@ assets.each_with_index do |id, i|
   #puts photo.path
   next if File.exist?(asset.thumbnail) unless asset.thumbnail.nil?
 
+  begin
   if asset.type == 'photo'
     Thumb.photo_thumbnail(path, file_name, asset.photo)
   elsif asset.type == 'video'
     Thumb.video_thumbnail(path, file_name, asset.video)
+  end
+  rescue Exception => ex
+    $stderr.puts("ERROR asset##{asset.id}: #{ex.message}")
   end
   if id % 10 == 0
     print '.'

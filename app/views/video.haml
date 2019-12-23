@@ -2,14 +2,20 @@
   -prev.each do |asset|
     .col-md-1
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
-        .video-thumbnail
+        -if asset.type == 'video'
+          .video-thumbnail
+            %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+        -else
           %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
   .col-sm-1
     &nbsp;
   -nxt.each do |asset|
     .col-md-1
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
-        .video-thumbnail
+        -if asset.type == 'video'
+          .video-thumbnail
+            %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+        -else
           %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
 -if prev.last
   %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}

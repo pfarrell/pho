@@ -1,7 +1,7 @@
 -albums.each do |album|
   =haml :'partials/album', locals: { album: album }
 
-%form.form{method: 'POST', action: "#{url_for('/album')}"}
+%form.form{method: 'POST', action: "#{url_for('/albums')}"}
   .input-group.input-group-lg
     %span.input-group-addon
       New Album

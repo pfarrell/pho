@@ -22,6 +22,8 @@
         &#xab;
   .col-sm-6
     %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
+    %div
+      =photo.asset.date.strftime('%B %d, %Y (%H:%M:%S %p)' )
   .col-sm-1.my-auto.display-1
     -if nxt.first
       %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}

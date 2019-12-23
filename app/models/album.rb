@@ -1,3 +1,3 @@
 class Album < Sequel::Model
-  many_to_many :photos
+  many_to_many :assets
 end

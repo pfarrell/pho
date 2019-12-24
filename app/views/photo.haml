@@ -3,7 +3,7 @@
     .col-md-1
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
         -if asset.photo
-          %img.next.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+          %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
         -else
           %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
   .col-sm-1
@@ -12,7 +12,7 @@
     .col-sm-1
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
         -if asset.photo
-          %img.next.img-responsive.thumb{class: "rotate-#{asset.photo.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+          %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
         -else
           %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
 .row
@@ -21,7 +21,7 @@
       %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
         &#xab;
   .col-sm-6
-    %img.full{class: "rotate-#{photo.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
+    %img.full{class: "rotate-#{photo.asset.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
     %div
       =photo.asset.date.strftime('%B %d, %Y (%l:%M:%S %p)' )
   .col-sm-1.my-auto.display-1

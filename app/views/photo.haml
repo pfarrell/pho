@@ -63,10 +63,16 @@
     #photo_info.collapse
       %table.table.table-condensed
         %tbody
+          -photo.asset.columns.each do |column|
+            %tr
+              %td
+                asset.#{column}
+              %td
+                =photo.asset[column]
           -photo.columns.each do |column|
             %tr
               %td
-                =column
+                photo.#{column}
               %td
                 =photo[column]
 :javascript

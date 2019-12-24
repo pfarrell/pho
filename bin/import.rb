@@ -107,7 +107,7 @@ class PhoIn
         hash: sha,
         path: File.realpath(file),
         size: file.size,
-        date: info&.general&.recorded_date || info&.general&.encoded_date || file.ctime,
+        date: info&.general&.comapplequicktimecreationdate || info&.general&.recorded_date || info&.general&.encoded_date || file.ctime,
       )
       video = Video.new(
         format: info.general&.format,

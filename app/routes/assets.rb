@@ -49,26 +49,33 @@ class App < Sinatra::Application
     end
   end
 
-  put '/photo/:id' do
+  put '/asset/:id' do
     protected
-    photo = Photo[params[:id].to_i]
-    photo.hidden = params.keys.include?('hidden')
-    photo.save.to_json
+    asset = Asset[params[:id]]
+    asset.hidden = params.keys.include?('hidden')
+    asset.save.to_json
   end
 
-  post '/photo/:id/favorite' do
+  post '/asset/:id/favorite' do
     protected
-    photo = Photo[params[:id].to_i]
-    favorite = Favorite.find_or_create(photo: photo, user_id: @user.id.to_s)
+    require 'byebug'
+    byebug
+    asset = Asset[params[:id]]
+    favorite = Favorite.find_or_create(asset: asset, user_id: @user.id)
     favorite.save.to_json
   end
 
-  delete '/photo/:id/favorite' do
+  delete '/asset/:id/favorite' do
     protected
-    photo = Photo[params[:id].to_i]
-    favorite = Favorite.find(photo: photo, user_id: @user.id)
-    photo.remove_favorite(favorite)
-    photo.to_json
+    asset = Asset[params[:id]]
+    favorite = Favorite.find(asset: asset, user_id: @user.id)
+    asset.remove_favorite(favorite)
+    asset.to_json
+  end
+
+  post '/asset/:id/albums' do
+    require 'byebug'
+    byebug
   end
 
 end

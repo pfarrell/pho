@@ -2,15 +2,10 @@ class Photo < Sequel::Model
   many_to_one  :camera
   one_to_one   :asset
   many_to_many :tags
-  one_to_many  :favorites
   many_to_many :albums
 
   def file_name
     Pathname.new(self.asset.path).basename
-  end
-
-  def favorited?(user_id)
-    Favorite.where(photo: self, user_id: user_id.to_s).count > 0
   end
 
   def self.search(query)

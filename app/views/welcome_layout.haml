@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+%html{:lang => "en"}
+  %head
+    %title#title
+      A Christmas Gift for My Lovely Wife
+    %meta{:charset => "utf-8"}
+    %meta{:name => "viewport", :content=>"width=device-width, initial-scale=1, shrink-to-fit=no"}
+    %meta{:name=>"apple-mobile-web-app-capable", :content=>"yes"}
+    %link{:rel => "stylesheet", :href => "#{url_for '/css/default.css'}", :type => "text/css", :media => "screen" }
+    %link{:href=>"#{url_for('/libs/bootstrap/dist/css/bootstrap.min.css')}", :rel=>"stylesheet"}
+  %body
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark{role: "navigation"}
+      %a.navbar-brand{href:"#{url_for("/")}"}
+        Pho
+      %button.navbar-toggler{data: {toggle: "collapse", target: "#navbarNavAltMarkup"}, aria: {control: "navbarNavAltMarkup", expanded: "false", label: "Toggle Navigation"}} 
+        %span.navbar-toggler-icon
+      #navbarNavAltMarkup.collapse.navbar-collapse
+        .navbar-nav
+    #wrap
+      .container#content.mt-2
+        =yield
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/jquery/dist/jquery.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/moment/min/moment.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for('/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}"}
+    %script{:type => "text/javascript", :src => "#{url_for '/js/form_actions.js'}"}
+:javascript
+

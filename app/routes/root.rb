@@ -3,7 +3,7 @@ class App < Sinatra::Application
     if cookies[:auth] && validate_token(cookies[:auth])
       redirect url_for("/rebecca")
     else
-      haml :login
+      haml :login, layout: :welcome_layout
     end
   end
 

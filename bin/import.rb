@@ -55,7 +55,7 @@ class PhoIn
         path: File.realpath(file),
         size: file.size,
         date: image.date_time_original || image.date_time_digitized || image.date_time || file.ctime,
-        orientation: magick.orientation || image.exif&.orientation,
+        orientation: magick.orientation&.to_i&.to_s || image.exif&.orientation&.to_id&.to_s,
       )
       photo = Photo.new(
         exposure_time: image.exif&.exposure_time,

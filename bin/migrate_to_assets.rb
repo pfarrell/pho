@@ -1,6 +1,5 @@
 require './app/db'
 require './app/models/asset'
-require 'byebug'
 
 DB[:photos].all.each do |photo|
   asset = Asset.find_or_create(

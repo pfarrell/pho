@@ -29,8 +29,6 @@ class App < Sinatra::Application
 
   post '/album/:id' do
     protected
-    require 'byebug'
-    byebug
     album = Album[params[:id]]
   end
 end

@@ -58,8 +58,6 @@ class App < Sinatra::Application
 
   post '/asset/:id/favorite' do
     protected
-    require 'byebug'
-    byebug
     asset = Asset[params[:id]]
     favorite = Favorite.find_or_create(asset: asset, user_id: @user.id)
     favorite.save.to_json
@@ -74,8 +72,6 @@ class App < Sinatra::Application
   end
 
   post '/asset/:id/albums' do
-    require 'byebug'
-    byebug
   end
 
 end

@@ -4,7 +4,9 @@
   "dependencies": {
     "moment": "^2.24.0",
     "bootstrap-daterangepicker": "^3.0.5",
-    "bootstrap": "^4.4.1"
+    "bootstrap": "^4.4.1",
+    "masonry": "^4.2.2",
+    "imagesloaded": "^4.1.4"
   },
   "homepage": "https://github.com/pfarrell/pho",
   "authors": [

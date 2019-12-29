@@ -14,7 +14,7 @@ class App < Sinatra::Application
         f.json { {:token=>token}.to_json }
         f.html {
           cookies[:auth] = token
-          destination = params[:return_to] || "/rebecca"
+          destination = params[:return_to] || "/summary"
           redirect url_for(destination)
         }
       end

@@ -25,12 +25,14 @@
                   =bc[:text]
 
     #wrap
-      .container#content.mt-2
+      .container-fluid.mt-2
         -if locals.has_key?(:error_message)
           .alert.alert-danger
             %a.close{data: { dismiss: "alert" }, aria: { label: "close" } }
               &times;
             =error_message
+        %script{type: "text/javascript", src: "#{url_for "/libs/masonry/dist/masonry.pkgd.min.js"}"}
+        %script{type: "text/javascript", src: "#{url_for "/libs/imagesloaded/imagesloaded.pkgd.min.js"}"}
         =yield
     %footer.footer
       Another
@@ -38,9 +40,9 @@
         %a{href:"https://patf.net"}
           patf
       joint
-    %script{:type => "text/javascript", :src => "#{url_for('/libs/jquery/dist/jquery.min.js')}"}
-    %script{:type => "text/javascript", :src => "#{url_for('/libs/moment/min/moment.min.js')}"}
-    %script{:type => "text/javascript", :src => "#{url_for('/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}"}
-    %script{:type => "text/javascript", :src => "#{url_for '/js/form_actions.js'}"}
+    %script{type: "text/javascript", src: "#{url_for('/libs/jquery/dist/jquery.min.js')}"}
+    %script{type: "text/javascript", src: "#{url_for('/libs/moment/min/moment.min.js')}"}
+    %script{type: "text/javascript", src: "#{url_for('/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}"}
+    %script{type: "text/javascript", src: "#{url_for '/js/form_actions.js'}"}
 :javascript
 

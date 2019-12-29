@@ -58,6 +58,23 @@ class App < Sinatra::Application
     end
   end
 
+  get "/summary/:year/:month/album/:id" do
+    protected
+    curr = Asset[params[:id].to_i]
+    ids = DB.fetch("select q.* from (select lag(id, 4) over w lag_4, lag(id, 3) over w lag_3, lag(id, 2) over w lag_2, lag(id, 1) over w lag_1, id, lead(id, 1) over w lead_1, lead(id, 2) over w lead_2, lead(id, 3) over w lead_3, lead(id, 4) over w lead_4 from assets window w as (order by date, id desc)) q where id = #{curr.id}").first.values()
+    ids = ids.reject{|x| x.nil?}
+    assets = Asset.join(Sequel.lit("(values#{ids.each_with_index.map{|x,i| "(#{x}, #{i})"}.join(', ')}) as x (id, ordering) on assets.id = x.id order by x.ordering")).all
+    prev = assets.delete_at(0)
+    nxt = assets.delete_at(-1)
+    base = "/summary/#{params[:year]}/#{params[:month]}"
+    breadcrumbs = [
+      {'text': "#{params[:year]}", 'url': "/summary/#{params[:year]}"},
+      {'text': "#{params[:month]}", 'url': "/summary/#{params[:year]}/#{params[:month]}", "active": true}
+    ]
+
+    haml :album_page, locals: {base: base, assets: assets, nxt: nxt, prev: prev, breadcrumbs: breadcrumbs, user_id: @user.id}.merge(symbolize_keys(params))
+  end
+
   put '/summary/:year/:month/photo/:id' do
     protected
     photo = Photo[params[:id].to_i]

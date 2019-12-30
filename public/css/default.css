@@ -123,3 +123,18 @@ body {
 .grid-item--width2 {
   width: 40%;
 }
+
+.full {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#content {
+  overflow: auto;
+  padding-bottom: 150px;
+}
+

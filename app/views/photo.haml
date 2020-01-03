@@ -20,7 +20,7 @@
         &#xab;
   .col-sm-10
     .imgbox
-      %img.center-fit{class: "rotate-#{photo.asset.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
+      %img{class: "rotate-#{photo.asset.orientation} center-#{photo.asset.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
       .center-fit
         =photo.asset.date.strftime('%B %d, %Y (%l:%M:%S %p)' )
   .col-sm-1.my-auto.display-1

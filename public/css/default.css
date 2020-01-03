@@ -129,9 +129,21 @@ body {
   height: 40%;
 }
 
-.center-fit {
+.center-1, 
+.center-2,
+.center-3,
+.center-4 {
   max-height: 75vh;
   max-width: 100%;
+  margin: auto;
+}
+
+.center-5, 
+.center-6,
+.center-7,
+.center-8 {
+  max-height: 75vw;
+  max-width: 100vh;
   margin: auto;
 }
 

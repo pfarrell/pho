@@ -2,16 +2,18 @@
   .grid-sizer
   -assets.each do |asset|
     -if asset.type == 'video'
-      video 
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        %img.video-thumbnail{src: "#{url_for("/#{asset.thumbnail_med}")}"}
     -else
-      %a.grid-item
-        %img{width: '100%', class: "rotate-#{asset.orientation}", src: "#{url_for("/pictures#{asset.path}")}"}
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        %img{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset[:thumbnail_med]}")}"}
 :javascript
   var container = document.querySelector('.grid')
   var msnry = new Masonry( container, {
     // options
     itemSelector: '.grid-item',
-    columnWidth: '.grid-sizer'
+    columnWidth: '.grid-sizer',
+    gutter: 10
   });
 
   imagesLoaded(container, function() {

@@ -6,8 +6,14 @@
           %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
         -else
           %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+      -if asset == prev.last
+        %label{style: 'font-size: 2em; color: blue'}
+          &#x261A;  
   -nxt.each do |asset|
     .col-sm-2
+      -if asset == nxt.first
+        %label{style: 'font-size: 2em; color: blue'}
+          &#x261B;
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
         -if asset.photo
           %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}

@@ -124,9 +124,15 @@ body {
   width: 40%;
 }
 
-.full {
-  max-height: 100%;
+.imgbox {
+  display: grid;
+  height: 40%;
+}
+
+.center-fit {
+  max-height: 75vh;
   max-width: 100%;
+  margin: auto;
 }
 
 #wrap {

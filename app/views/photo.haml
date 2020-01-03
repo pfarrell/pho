@@ -19,9 +19,10 @@
       %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
         &#xab;
   .col-sm-10
-    %img.full{class: "rotate-#{photo.asset.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
-    %div
-      =photo.asset.date.strftime('%B %d, %Y (%l:%M:%S %p)' )
+    .imgbox
+      %img.center-fit{class: "rotate-#{photo.asset.orientation}", src: "#{url_for("/pictures#{photo.asset.path}")}"}
+      .center-fit
+        =photo.asset.date.strftime('%B %d, %Y (%l:%M:%S %p)' )
   .col-sm-1.my-auto.display-1
     -if nxt.first
       %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}

@@ -3,6 +3,7 @@ public/thumbnails
 public/pictures
 spec/fixtures/*.jpg
 log/*
+data/*
 vendor
 coverage/**/*
 !coverage/coverage-badge.png

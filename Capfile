@@ -3,6 +3,8 @@ require 'capistrano/setup'
 
 # Includes default deployment tasks
 require 'capistrano/deploy'
+require "capistrano/scm/git"
+
 require 'capistrano/bundler'
 require 'capistrano/bower'
 
@@ -21,6 +23,8 @@ require 'capistrano/rvm'
 # require 'capistrano/chruby'
 # require 'capistrano/bundler'
 # require 'capistrano/rails/assets'
+install_plugin Capistrano::SCM::Git
+
 # require 'capistrano/rails/migrations'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.

@@ -10,7 +10,6 @@ gem 'sinatra-respond_to'
 gem 'sequel'
 gem 'pg'
 
-gem 'rmagick'
 gem 'streamio-ffmpeg'
 
 gem 'capistrano'
@@ -36,3 +35,5 @@ group :development, :test do
   gem 'irb'
   gem 'shotgun'
 end
+
+gem "rmagick", "~> 4.1"

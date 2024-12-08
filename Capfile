@@ -18,12 +18,15 @@ require 'capistrano/bower'
 #   https://github.com/capistrano/bundler
 #   https://github.com/capistrano/rails
 #
-require 'capistrano/rvm'
-# require 'capistrano/rbenv'
+#require 'capistrano/rvm'
+ require 'capistrano/rbenv'
 # require 'capistrano/chruby'
 # require 'capistrano/bundler'
 # require 'capistrano/rails/assets'
 install_plugin Capistrano::SCM::Git
+
+set :rbenv_ruby, '3.1.6'
+
 
 # require 'capistrano/rails/migrations'
 

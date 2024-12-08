@@ -1,5 +1,4 @@
 source "https://rubygems.org"
-ruby '2.6.5'
 
 gem 'rake'
 
@@ -14,7 +13,6 @@ gem 'streamio-ffmpeg'
 gem 'capistrano'
 gem 'capistrano-bundler'
 gem 'capistrano-bower'
-gem 'capistrano-rvm', require: false
 
 gem 'exifr'
 gem 'mediainfo'
@@ -36,3 +34,12 @@ group :development, :test do
 end
 
 gem "rmagick", "~> 4.1"
+
+gem "puma", "~> 6.5"
+gem 'net-ssh', '7.0.0.beta1'
+
+gem "ed25519", "~> 1.3"
+
+gem "bcrypt_pbkdf", "~> 1.1"
+
+gem "capistrano-rbenv", "~> 2.2"

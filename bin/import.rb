@@ -48,7 +48,7 @@ class PhoIn
     sha= Digest::SHA256.file(file)
     asset = Asset.find(hash: sha.hexdigest)
     if(asset.nil?)
-      print "--> #{file.path}"
+      puts "--> #{file.path}"
       asset = Asset.find_or_create(
         type: 'photo',
         hash: sha.hexdigest,
@@ -84,6 +84,8 @@ class PhoIn
         photo.add_tag tag
       end
       photo.save
+    else
+      puts "#{file.path} already loaded"
     end
     photo
   end
@@ -101,7 +103,7 @@ class PhoIn
     sha = Digest::SHA256.hexdigest(YAML.dump(info))
     asset = Asset.find(hash: sha)
     if(asset.nil?)
-      print "--> #{file.path}"
+      puts "--> #{file.path}"
       asset = Asset.find_or_create(
         type: 'video',
         hash: sha,
@@ -136,6 +138,8 @@ class PhoIn
         video.add_tag tag
       end
       video.save
+    else
+      puts "#{file.path} already loaded"
     end
     video
   end

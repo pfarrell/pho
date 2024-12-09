@@ -1,4 +1,4 @@
--div = Math.log(summary.map{|x| x[:count]}.max)
+-div = summary.length > 0 ? Math.log(summary.map{|x| x[:count]}.max) : 1
 -div = 1 if div == 0
 %h1
   =title

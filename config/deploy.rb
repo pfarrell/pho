@@ -12,7 +12,7 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :deploy_to, '/var/www/pho'
 set :rvm_map_bins, %w{bundle gem rake ruby}
 set :rvm_type, :user
-set :rvm_ruby_version, '2.6.5'
+set :rvm_ruby_version, '3.1.2'
 
 # Default value for :format is :pretty
 # set :format, :pretty
@@ -33,12 +33,12 @@ set :deploy_via, :remote_cache
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-set :default_env, {
-  'PATH' => "/home/pfarrell/.rvm/gems/ruby-2.6.5@global/bin://home/pfarrell/.rvm/rubies/ruby-2.6.5/bin:home/pfarrell/.rvm/bin:$PATH",
-  'RUBY_VERSION' => 'ruby-2.6.5',
-  'GEM_HOME' => '/home/pfarrell/.rvm/gems/ruby-2.6.5@global',
-  'GEM_PATH' => '/home/pfarrell/.rvm/gems/ruby-2.6.5@global'
-}
+#set :default_env, {
+#  'PATH' => "/home/pfarrell/.rvm/gems/ruby-2.6.5@global/bin://home/pfarrell/.rvm/rubies/ruby-2.6.5/bin:home/pfarrell/.rvm/bin:$PATH",
+#  'RUBY_VERSION' => 'ruby-2.6.5',
+#  'GEM_HOME' => '/home/pfarrell/.rvm/gems/ruby-2.6.5@global',
+#  'GEM_PATH' => '/home/pfarrell/.rvm/gems/ruby-2.6.5@global'
+#}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5

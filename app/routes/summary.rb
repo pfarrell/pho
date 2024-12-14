@@ -10,7 +10,7 @@ class App < Sinatra::Application
       h[:link] = "/summary/#{h[:year].to_i}"
     }
     respond_to do |f|
-      f.html { haml :summary, locals: {title:'Videos and Pictures By Year', summary: summary, key: :year}}
+      f.html { haml :summary, locals: {title:'Full Timeline', summary: summary, key: :year}}
       f.json { summary.to_json }
     end
   end

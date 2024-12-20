@@ -146,7 +146,7 @@ class PhoIn
 end
 
 file, tags = ARGV
-if file.downcase.end_with?(".jpg")
+if file.downcase.end_with?(".jpg") || file.downcase.end_with?(".jpeg")
   PhoIn.import_photo(file, tags)
 else
   PhoIn.import_video(file, tags)

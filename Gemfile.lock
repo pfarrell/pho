@@ -57,6 +57,7 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
+    rexml (3.4.0)
     rmagick (4.2.4)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -127,6 +128,7 @@ DEPENDENCIES
   pry
   puma (~> 6.5)
   rake
+  rexml (~> 3.4)
   rmagick (~> 4.1)
   rspec
   sequel

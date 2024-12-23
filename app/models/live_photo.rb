@@ -1,0 +1,2 @@
+class LivePhoto < Photo
+end

@@ -86,4 +86,5 @@ require 'models/search'
 require 'models/album'
 require 'models/summary'
 require 'models/video'
+require 'models/live_photo'
 

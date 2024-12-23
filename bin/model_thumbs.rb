@@ -50,7 +50,7 @@ assets.each_with_index do |id, i|
   next if File.exist?(asset.thumbnail) unless asset.thumbnail.nil?
 
   begin
-  if asset.type == 'photo'
+    if ['photo', 'live_photo'].include?(asset.type)
     Thumb.photo_thumbnail(path, file_name, asset.photo)
   elsif asset.type == 'video'
     Thumb.video_thumbnail(path, file_name, asset.video)

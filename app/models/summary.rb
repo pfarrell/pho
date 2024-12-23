@@ -1,7 +1,7 @@
 class Summary
   def self.all
     DB[:assets]
-      .where(type: 'photo')
+      #.where(type: 'photo')
       .group_and_count(Sequel.as(Sequel.function(:date_part, 'year', :date), 'year'))
       .order(Sequel.desc(:year))
       .all
@@ -10,7 +10,7 @@ class Summary
   def self.by_year(year)
     DB[:assets]
       .where(Sequel.function(:date_part, 'year', :date) => year)
-      .where(type: 'photo')
+      #.where(type: 'photo')
       .group_and_count(Sequel.as(Sequel.function(:date_part, 'month', :date), 'month'))
       .order(:month)
       .all

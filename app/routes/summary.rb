@@ -55,6 +55,8 @@ class App < Sinatra::Application
       haml :photo, locals: {base: base, photo: curr.photo, nxt: nxt, prev: prev, breadcrumbs: breadcrumbs, user_id: @user.id}.merge(symbolize_keys(params))
     elsif curr.type == 'video'
       haml :video, locals: {base: base, video: curr.video, nxt: nxt, prev: prev, breadcrumbs: breadcrumbs,  user_id: @user.id}.merge(symbolize_keys(params))
+    elsif curr.type == 'live_photo'
+      haml :live_photo, locals: {base: base, photo: curr.photo, video: curr.video, nxt: nxt, prev: prev, breadcrumbs: breadcrumbs, user_id: @user.id}.merge(symbolize_keys(params))
     end
   end
 

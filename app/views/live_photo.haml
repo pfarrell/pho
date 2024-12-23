@@ -1,0 +1,158 @@
+.row.sp-bottom-sm
+  -prev.each do |asset|
+    .col-sm-2
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        -if asset.photo
+          %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+        -else
+          %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+      -if asset == prev.last
+        %label{style: 'font-size: 2em; color: blue'}
+          &#x261A;  
+  -nxt.each do |asset|
+    .col-sm-2
+      -if asset == nxt.first
+        %label{style: 'font-size: 2em; color: blue'}
+          &#x261B;
+      %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
+        -if asset.photo
+          %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+        -else
+          %img.next.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
+.row
+  .col-sm-1.my-auto.display-1
+    -if prev.last
+      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{prev.last.id}")}"}
+        &#xab;
+  .col-sm-10
+    .imgbox.livephoto
+      %img.photo{class: "rotate-#{photo.asset.orientation} center-#{photo.asset.orientation} photo", src: "#{url_for("/pictures#{photo.asset.path}")}"}
+      %video.video{class: "video", controls: true, poster: "#{url_for("/#{video.asset.thumbnail_med}")}"}
+        -type = "video/mp4"
+        %source{src: "#{url_for("/pictures#{video.path}")}", type: "#{type}"}
+      .center-fit
+        =photo.asset.date.strftime('%B %d, %Y (%l:%M:%S %p)' )
+  .col-sm-1.my-auto.display-1
+    -if nxt.first
+      %a.text-decoration-none{href: "#{url_for("#{base}/asset/#{nxt.first.id}")}"}
+        &#xbb;
+%hr
+.row
+  .col-sm-1
+    %form.hidden_photo
+      .checkbox
+        %label
+          %input.form-control.input-sm{type:"checkbox", name:"hidden", checked: photo.asset.hidden, onFocus: "this.dirty=false", onChange: "this.dirty = true; if(this.dirty) { update_photo(#{photo.asset.id}) }"}
+            Hidden?
+  .col-sm-1
+    %form.favorite_photo
+      .form-group.checkbox
+        %label
+          %input.form-control.input-sm{type:"checkbox", name:"favorite", checked: photo.asset.favorited?(user_id), onFocus: "this.dirty=false", onChange: "this.dirty = true; if(this.dirty) { update_favorite(#{photo.asset.id}, this.checked) }"}
+            Favorite?
+  .col-sm-7
+    %form.manage_albums
+      .form-group
+        %label{for: "addToAlbumSelect"}
+          Add Photo to albums
+        %select#addToAlbumSelect.form-control{multiple: true}
+          -@user.albums.each do |album|
+            %option
+              =album.name
+      %button.btn.btn-primary.mb-2{onClick: "update_albums(#{photo.asset.id})"}
+        Save to Albums
+    -if photo.asset.albums.count > 0
+      .sp-bottom-sm
+        -photo.asset.albums.each do |album|
+          %div
+            =album.name
+  .col-sm-2
+    .row
+      .col-sm-12
+        .sp-bottom-sm
+          %a.btn.btn-primary{href: "#{url_for("/pictures#{photo.asset.path}")}", target: "_"}
+            Raw Image
+        .sp-bottom-sm
+          %button.btn.btn-info{ data: { toggle: "collapse", target: "#photo_info" } }
+            Photo Information
+          #photo_info.collapse
+            %table.table.table-condensed
+              %tbody
+                -photo.asset.columns.each do |column|
+                  %tr
+                    %td
+                      asset.#{column}
+                    %td
+                      =photo.asset[column]
+                -photo.columns.each do |column|
+                  %tr
+                    %td
+                      photo.#{column}
+                    %td
+                      =photo[column]
+                -photo.asset.video.columns.each do |column|
+                  %tr
+                    %td
+                      photo.asset.video.#{column}
+                    %td
+                      =photo.asset.video[column]
+:javascript
+  document.onkeydown = checkKey;
+  function update_favorite(id, checked) {
+    var form=$(".favorite_photo");
+    var url = '#{url_for("#{base}/asset/#{photo.id}/favorite")}';
+    if(checked) {
+      return post(form, url);
+    } else {
+      return del(url);
+    }
+  }
+
+  function update_photo(id) {
+    var form=$(".hidden_photo");
+    var url = '#{url_for("#{base}/asset/#{photo.asset.id}")}';
+    return put(form, url);
+  }
+
+  function update_albums(id) {
+    var form=$(".manage_albums");
+    var url = '#{url_for("#{base}/asset/#{photo.asset.id}/albums")}';
+    return post(form, url);
+  }
+
+
+  document.onkeydown = checkKey;
+  function checkKey(e) {
+    e = e || window.event;
+    if (e.keyCode == '37') {
+      if(#{prev.last.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("#{base}/asset/#{prev.last&.id}")}"
+      }
+    } else if (e.keyCode == '39') {
+      if(#{nxt.first.nil? ? "false" : "true"}) {
+        window.location = "#{url_for("#{base}/asset/#{nxt.first&.id}")}"
+      }
+    }
+  }
+
+  const container = document.querySelector('.imgbox');
+  const photo = document.querySelector('.photo');
+  const video = document.querySelector('.video');
+
+  container.addEventListener('mouseenter', () => {
+      photo.style.display = 'none';
+      video.style.display = 'block';
+      video.play();
+  });
+
+  video.addEventListener('ended', () => {
+      video.style.display = 'none';
+      photo.style.display = 'block';
+  });
+
+  container.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+      video.style.display = 'none';
+      photo.style.display = 'block';
+  });

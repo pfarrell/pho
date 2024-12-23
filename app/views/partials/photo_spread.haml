@@ -4,5 +4,7 @@
   -assets.each_with_index do |asset, i|
     -if asset.type == 'photo'
       =haml :"partials/photo", locals: {base: base, asset: asset, idx: i}.merge(symbolize_keys(params))
-    -elsif asset.video_id
+    -elsif asset.type == 'video'
       =haml :"partials/video", locals: {base: base, asset: asset, idx: i}.merge(symbolize_keys(params))
+    -else
+      =haml :"partials/live_photo", locals: {base: base, asset: asset, idx: i}.merge(symbolize_keys(params))

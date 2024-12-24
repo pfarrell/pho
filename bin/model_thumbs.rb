@@ -29,14 +29,23 @@ class Thumb
     i.resize_to_fill(400,400).write(dest_path)
   end
 
+  def self.mk_poster(video, photo_path, dest_path)
+    i = Magick::Image.read(photo_path).first
+    FileUtils.mkdir_p(File.dirname(dest_path))
+    i.resize_to_fill(video.width,video.height).write(dest_path)
+  end
+
   def self.video_thumbnail(path, file_name, video)
     movie = FFMPEG::Movie.new(video.asset.path)
     temp_path = "/tmp/#{file_name}-thumb.jpg"
     movie.screenshot(temp_path, seek_time: 1)
     Thumb.mk_thumb(temp_path, "public/thumbnails#{path.dirname.to_s}/#{file_name}-thumb.jpg")
     Thumb.mk_medthumb(temp_path, "public/thumbnails#{path.dirname.to_s}/#{file_name}-medthumb.jpg")
+    Thumb.mk_poster(video, temp_path, "public/thumbnails#{path.dirname.to_s}/#{file_name}-poster.jpg")
+    # make a poster thumbnail here too
     video.asset.thumbnail = "thumbnails#{path.dirname.to_s}/#{file_name}-thumb.jpg"
     video.asset.thumbnail_med = "thumbnails#{path.dirname.to_s}/#{file_name}-medthumb.jpg"
+    video.asset.poster = "thumbnails#{path.dirname.to_s}/#{file_name}-poster.jpg"
     video.asset.save
   end
 end

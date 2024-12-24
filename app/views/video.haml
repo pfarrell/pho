@@ -2,11 +2,7 @@
   -prev.each do |asset|
     .col-sm-2
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
-        -if asset.type == 'video'
-          .video-thumbnail
-            %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
-        -else
-          %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+        %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
       -if asset == prev.last
         %label{style: 'font-size: 2em; color: blue'}
           &#x261A;  
@@ -16,11 +12,7 @@
         %label{style: 'font-size: 2em; color: blue'}
           &#x261B;
       %a{href: "#{url_for("#{base}/asset/#{asset.id}")}"}
-        -if asset.type == 'video'
-          .video-thumbnail
-            %img.img-center.img-responsive.thumb{src: "#{url_for("/#{asset.thumbnail}")}"}
-        -else
-          %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
+        %img.next.img-responsive.thumb{class: "rotate-#{asset.orientation}", src: "#{url_for("/#{asset.thumbnail}")}"}
 .row
   .col-sm-1.my-auto.display-1
     -if prev.last
@@ -28,7 +20,7 @@
         &#xab;
   .col-sm-10
     .imgbox
-      %video.video{width: "100%", controls: true, poster: "#{url_for("/#{video.asset.thumbnail_med}")}"}
+      %video.video{width: "100%", controls: true, poster: "#{url_for("/#{video.asset.poster}")}"}
         -type = "video/mp4"
         %source{src: "#{url_for("/pictures#{video.asset.path}")}", type: "#{type}"}
   .col-sm-1.my-auto.display-1

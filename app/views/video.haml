@@ -28,7 +28,7 @@
         &#xab;
   .col-sm-10
     .imgbox
-      %video{width: "100%", controls: true, poster: "#{url_for("/#{video.asset.thumbnail_med}")}"}
+      %video.video{width: "100%", controls: true, poster: "#{url_for("/#{video.asset.thumbnail_med}")}"}
         -type = "video/mp4"
         %source{src: "#{url_for("/pictures#{video.asset.path}")}", type: "#{type}"}
   .col-sm-1.my-auto.display-1

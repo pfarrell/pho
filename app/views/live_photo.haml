@@ -27,7 +27,8 @@
   .col-sm-10
     .imgbox.livephoto
       %img.photo{class: "rotate-#{photo.asset.orientation} center-#{photo.asset.orientation} photo", src: "#{url_for("/pictures#{photo.asset.path}")}"}
-      %video.video{class: "video", controls: true, poster: "#{url_for("/#{video.asset.thumbnail_med}")}"}
+      -#%video.video{class: "video", controls: false, poster: "#{url_for("/#{video.asset.thumbnail_med}")}"}
+      %video.video
         -type = "video/mp4"
         %source{src: "#{url_for("/pictures#{video.path}")}", type: "#{type}"}
       .center-fit
@@ -96,6 +97,12 @@
                       photo.asset.video.#{column}
                     %td
                       =photo.asset.video[column]
+                -photo.camera.columns.each do |column|
+                  %tr
+                    %td
+                      photo.camera.#{column}
+                    %td
+                      =photo.camera[column]
 :javascript
   document.onkeydown = checkKey;
   function update_favorite(id, checked) {
